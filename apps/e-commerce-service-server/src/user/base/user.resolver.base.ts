@@ -22,6 +22,8 @@ import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
 import { CartFindManyArgs } from "../../cart/base/CartFindManyArgs";
 import { Cart } from "../../cart/base/Cart";
+import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
+import { Order } from "../../order/base/Order";
 import { RecommendationFindManyArgs } from "../../recommendation/base/RecommendationFindManyArgs";
 import { Recommendation } from "../../recommendation/base/Recommendation";
 import { UserProfileFindManyArgs } from "../../userProfile/base/UserProfileFindManyArgs";
@@ -101,6 +103,20 @@ export class UserResolverBase {
     @graphql.Args() args: CartFindManyArgs
   ): Promise<Cart[]> {
     const results = await this.service.findCarts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [Order], { name: "orders" })
+  async findOrders(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: OrderFindManyArgs
+  ): Promise<Order[]> {
+    const results = await this.service.findOrders(parent.id, args);
 
     if (!results) {
       return [];

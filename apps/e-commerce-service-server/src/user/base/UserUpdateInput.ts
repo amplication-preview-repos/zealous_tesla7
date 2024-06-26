@@ -20,6 +20,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { OrderUpdateManyWithoutUsersInput } from "./OrderUpdateManyWithoutUsersInput";
 import { RecommendationUpdateManyWithoutUsersInput } from "./RecommendationUpdateManyWithoutUsersInput";
 import { EnumUserRole } from "./EnumUserRole";
 import { IsJSONValue } from "../../validators";
@@ -76,6 +77,18 @@ class UserUpdateInput {
     nullable: true,
   })
   lastName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => OrderUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => OrderUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => OrderUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  orders?: OrderUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

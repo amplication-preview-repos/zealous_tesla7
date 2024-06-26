@@ -20,6 +20,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { OrderCreateNestedManyWithoutUsersInput } from "./OrderCreateNestedManyWithoutUsersInput";
 import { RecommendationCreateNestedManyWithoutUsersInput } from "./RecommendationCreateNestedManyWithoutUsersInput";
 import { EnumUserRole } from "./EnumUserRole";
 import { IsJSONValue } from "../../validators";
@@ -76,6 +77,18 @@ class UserCreateInput {
     nullable: true,
   })
   lastName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => OrderCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => OrderCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => OrderCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  orders?: OrderCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: true,

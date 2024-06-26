@@ -21,6 +21,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Order } from "../../order/base/Order";
 import { Recommendation } from "../../recommendation/base/Recommendation";
 import { EnumUserRole } from "./EnumUserRole";
 import { IsJSONValue } from "../../validators";
@@ -90,6 +91,15 @@ class User {
     nullable: true,
   })
   lastName!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Order],
+  })
+  @ValidateNested()
+  @Type(() => Order)
+  @IsOptional()
+  orders?: Array<Order>;
 
   @ApiProperty({
     required: false,

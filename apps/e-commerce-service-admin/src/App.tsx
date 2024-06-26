@@ -45,6 +45,14 @@ import { WishlistList } from "./wishlist/WishlistList";
 import { WishlistCreate } from "./wishlist/WishlistCreate";
 import { WishlistEdit } from "./wishlist/WishlistEdit";
 import { WishlistShow } from "./wishlist/WishlistShow";
+import { OrderList } from "./order/OrderList";
+import { OrderCreate } from "./order/OrderCreate";
+import { OrderEdit } from "./order/OrderEdit";
+import { OrderShow } from "./order/OrderShow";
+import { OrderStatusList } from "./orderStatus/OrderStatusList";
+import { OrderStatusCreate } from "./orderStatus/OrderStatusCreate";
+import { OrderStatusEdit } from "./orderStatus/OrderStatusEdit";
+import { OrderStatusShow } from "./orderStatus/OrderStatusShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -140,6 +148,20 @@ const App = (): React.ReactElement => {
           edit={WishlistEdit}
           create={WishlistCreate}
           show={WishlistShow}
+        />
+        <Resource
+          name="Order"
+          list={OrderList}
+          edit={OrderEdit}
+          create={OrderCreate}
+          show={OrderShow}
+        />
+        <Resource
+          name="OrderStatus"
+          list={OrderStatusList}
+          edit={OrderStatusEdit}
+          create={OrderStatusCreate}
+          show={OrderStatusShow}
         />
       </Admin>
     </div>

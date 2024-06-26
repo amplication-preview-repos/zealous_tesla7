@@ -1,4 +1,5 @@
 import { Cart } from "../cart/Cart";
+import { Order } from "../order/Order";
 import { Recommendation } from "../recommendation/Recommendation";
 import { JsonValue } from "type-fest";
 import { UserProfile } from "../userProfile/UserProfile";
@@ -11,6 +12,7 @@ export type User = {
   firstName: string | null;
   id: string;
   lastName: string | null;
+  orders?: Array<Order>;
   recommendations?: Array<Recommendation>;
   role?: "Option1" | null;
   roles: JsonValue;

@@ -15,6 +15,7 @@ import {
   Prisma,
   User as PrismaUser,
   Cart as PrismaCart,
+  Order as PrismaOrder,
   Recommendation as PrismaRecommendation,
   UserProfile as PrismaUserProfile,
   Wishlist as PrismaWishlist,
@@ -52,6 +53,17 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .carts(args);
+  }
+
+  async findOrders(
+    parentId: string,
+    args: Prisma.OrderFindManyArgs
+  ): Promise<PrismaOrder[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .orders(args);
   }
 
   async findRecommendations(
