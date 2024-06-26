@@ -14,6 +14,7 @@ import {
 import { CartTitle } from "../cart/CartTitle";
 import { FeedbackTitle } from "../feedback/FeedbackTitle";
 import { HelpDeskTitle } from "../helpDesk/HelpDeskTitle";
+import { LoyaltyProgramTitle } from "../loyaltyProgram/LoyaltyProgramTitle";
 import { OrderTitle } from "../order/OrderTitle";
 import { RecommendationTitle } from "../recommendation/RecommendationTitle";
 import { UserProfileTitle } from "../userProfile/UserProfileTitle";
@@ -51,6 +52,14 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
           <SelectArrayInput optionText={HelpDeskTitle} />
         </ReferenceArrayInput>
         <TextInput label="Last Name" source="lastName" />
+        <ReferenceArrayInput
+          source="loyaltyPrograms"
+          reference="LoyaltyProgram"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={LoyaltyProgramTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="orders"
           reference="Order"

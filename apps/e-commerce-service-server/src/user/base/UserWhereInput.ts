@@ -18,6 +18,7 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { FeedbackListRelationFilter } from "../../feedback/base/FeedbackListRelationFilter";
 import { HelpDeskListRelationFilter } from "../../helpDesk/base/HelpDeskListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { LoyaltyProgramListRelationFilter } from "../../loyaltyProgram/base/LoyaltyProgramListRelationFilter";
 import { OrderListRelationFilter } from "../../order/base/OrderListRelationFilter";
 import { RecommendationListRelationFilter } from "../../recommendation/base/RecommendationListRelationFilter";
 import { EnumUserRole } from "./EnumUserRole";
@@ -105,6 +106,18 @@ class UserWhereInput {
     nullable: true,
   })
   lastName?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => LoyaltyProgramListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => LoyaltyProgramListRelationFilter)
+  @IsOptional()
+  @Field(() => LoyaltyProgramListRelationFilter, {
+    nullable: true,
+  })
+  loyaltyPrograms?: LoyaltyProgramListRelationFilter;
 
   @ApiProperty({
     required: false,

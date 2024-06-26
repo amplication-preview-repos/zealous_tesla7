@@ -1,6 +1,7 @@
 import { CartUpdateManyWithoutUsersInput } from "./CartUpdateManyWithoutUsersInput";
 import { FeedbackUpdateManyWithoutUsersInput } from "./FeedbackUpdateManyWithoutUsersInput";
 import { HelpDeskUpdateManyWithoutUsersInput } from "./HelpDeskUpdateManyWithoutUsersInput";
+import { LoyaltyProgramUpdateManyWithoutUsersInput } from "./LoyaltyProgramUpdateManyWithoutUsersInput";
 import { OrderUpdateManyWithoutUsersInput } from "./OrderUpdateManyWithoutUsersInput";
 import { RecommendationUpdateManyWithoutUsersInput } from "./RecommendationUpdateManyWithoutUsersInput";
 import { InputJsonValue } from "../../types";
@@ -14,6 +15,7 @@ export type UserUpdateInput = {
   firstName?: string | null;
   helpDesks?: HelpDeskUpdateManyWithoutUsersInput;
   lastName?: string | null;
+  loyaltyPrograms?: LoyaltyProgramUpdateManyWithoutUsersInput;
   orders?: OrderUpdateManyWithoutUsersInput;
   password?: string;
   recommendations?: RecommendationUpdateManyWithoutUsersInput;

@@ -1,6 +1,7 @@
 import { Cart } from "../cart/Cart";
 import { Feedback } from "../feedback/Feedback";
 import { HelpDesk } from "../helpDesk/HelpDesk";
+import { LoyaltyProgram } from "../loyaltyProgram/LoyaltyProgram";
 import { Order } from "../order/Order";
 import { Recommendation } from "../recommendation/Recommendation";
 import { JsonValue } from "type-fest";
@@ -16,6 +17,7 @@ export type User = {
   helpDesks?: Array<HelpDesk>;
   id: string;
   lastName: string | null;
+  loyaltyPrograms?: Array<LoyaltyProgram>;
   orders?: Array<Order>;
   recommendations?: Array<Recommendation>;
   role?: "Option1" | null;

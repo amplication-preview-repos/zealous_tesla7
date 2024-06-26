@@ -23,6 +23,7 @@ import {
 import { Type } from "class-transformer";
 import { Feedback } from "../../feedback/base/Feedback";
 import { HelpDesk } from "../../helpDesk/base/HelpDesk";
+import { LoyaltyProgram } from "../../loyaltyProgram/base/LoyaltyProgram";
 import { Order } from "../../order/base/Order";
 import { Recommendation } from "../../recommendation/base/Recommendation";
 import { EnumUserRole } from "./EnumUserRole";
@@ -111,6 +112,15 @@ class User {
     nullable: true,
   })
   lastName!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [LoyaltyProgram],
+  })
+  @ValidateNested()
+  @Type(() => LoyaltyProgram)
+  @IsOptional()
+  loyaltyPrograms?: Array<LoyaltyProgram>;
 
   @ApiProperty({
     required: false,

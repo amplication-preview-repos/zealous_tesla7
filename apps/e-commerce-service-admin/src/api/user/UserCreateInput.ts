@@ -1,6 +1,7 @@
 import { CartCreateNestedManyWithoutUsersInput } from "./CartCreateNestedManyWithoutUsersInput";
 import { FeedbackCreateNestedManyWithoutUsersInput } from "./FeedbackCreateNestedManyWithoutUsersInput";
 import { HelpDeskCreateNestedManyWithoutUsersInput } from "./HelpDeskCreateNestedManyWithoutUsersInput";
+import { LoyaltyProgramCreateNestedManyWithoutUsersInput } from "./LoyaltyProgramCreateNestedManyWithoutUsersInput";
 import { OrderCreateNestedManyWithoutUsersInput } from "./OrderCreateNestedManyWithoutUsersInput";
 import { RecommendationCreateNestedManyWithoutUsersInput } from "./RecommendationCreateNestedManyWithoutUsersInput";
 import { InputJsonValue } from "../../types";
@@ -14,6 +15,7 @@ export type UserCreateInput = {
   firstName?: string | null;
   helpDesks?: HelpDeskCreateNestedManyWithoutUsersInput;
   lastName?: string | null;
+  loyaltyPrograms?: LoyaltyProgramCreateNestedManyWithoutUsersInput;
   orders?: OrderCreateNestedManyWithoutUsersInput;
   password: string;
   recommendations?: RecommendationCreateNestedManyWithoutUsersInput;

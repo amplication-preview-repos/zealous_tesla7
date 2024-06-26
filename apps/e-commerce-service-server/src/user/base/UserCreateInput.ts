@@ -22,6 +22,7 @@ import {
 import { Type } from "class-transformer";
 import { FeedbackCreateNestedManyWithoutUsersInput } from "./FeedbackCreateNestedManyWithoutUsersInput";
 import { HelpDeskCreateNestedManyWithoutUsersInput } from "./HelpDeskCreateNestedManyWithoutUsersInput";
+import { LoyaltyProgramCreateNestedManyWithoutUsersInput } from "./LoyaltyProgramCreateNestedManyWithoutUsersInput";
 import { OrderCreateNestedManyWithoutUsersInput } from "./OrderCreateNestedManyWithoutUsersInput";
 import { RecommendationCreateNestedManyWithoutUsersInput } from "./RecommendationCreateNestedManyWithoutUsersInput";
 import { EnumUserRole } from "./EnumUserRole";
@@ -103,6 +104,18 @@ class UserCreateInput {
     nullable: true,
   })
   lastName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => LoyaltyProgramCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => LoyaltyProgramCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => LoyaltyProgramCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  loyaltyPrograms?: LoyaltyProgramCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

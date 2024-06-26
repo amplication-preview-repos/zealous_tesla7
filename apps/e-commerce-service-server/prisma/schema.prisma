@@ -7,6 +7,14 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model UserRole {
+  createdAt       DateTime @default(now())
+  id              String   @id @default(cuid())
+  roleDescription String?
+  roleName        String?
+  updatedAt       DateTime @updatedAt
+}
+
 model UserProfile {
   address     String?
   createdAt   DateTime @default(now())
@@ -19,14 +27,6 @@ model UserProfile {
   userId      String?
 }
 
-model UserRole {
-  createdAt       DateTime @default(now())
-  id              String   @id @default(cuid())
-  roleDescription String?
-  roleName        String?
-  updatedAt       DateTime @updatedAt
-}
-
 model User {
   carts           Cart[]
   createdAt       DateTime         @default(now())
@@ -36,6 +36,7 @@ model User {
   helpDesks       HelpDesk[]
   id              String           @id @default(cuid())
   lastName        String?
+  loyaltyPrograms LoyaltyProgram[]
   orders          Order[]
   password        String
   recommendations Recommendation[]
@@ -47,18 +48,18 @@ model User {
   wishlists       Wishlist[]
 }
 
-model Category {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
-}
-
 model Product {
   createdAt       DateTime         @default(now())
   feedbacks       Feedback[]
   id              String           @id @default(cuid())
   recommendations Recommendation[]
   updatedAt       DateTime         @updatedAt
+}
+
+model Category {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
 }
 
 model Search {
@@ -86,6 +87,14 @@ model Recommendation {
   userId    String?
 }
 
+model Wishlist {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
 model Cart {
   createdAt  DateTime @default(now())
   id         String   @id @default(cuid())
@@ -95,12 +104,13 @@ model Cart {
   userId     String?
 }
 
-model Wishlist {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+model OrderStatus {
+  createdAt DateTime               @default(now())
+  id        String                 @id @default(cuid())
+  order     Order?                 @relation(fields: [orderId], references: [id])
+  orderId   String?
+  status    EnumOrderStatusStatus?
+  updatedAt DateTime               @updatedAt
 }
 
 model Order {
@@ -116,13 +126,16 @@ model Order {
   userId        String?
 }
 
-model OrderStatus {
-  createdAt DateTime               @default(now())
-  id        String                 @id @default(cuid())
-  order     Order?                 @relation(fields: [orderId], references: [id])
-  orderId   String?
-  status    EnumOrderStatusStatus?
-  updatedAt DateTime               @updatedAt
+model Payment {
+  amount        Float?
+  createdAt     DateTime                  @default(now())
+  id            String                    @id @default(cuid())
+  order         Order?                    @relation(fields: [orderId], references: [id])
+  orderId       String?
+  paymentDate   DateTime?
+  paymentMethod EnumPaymentPaymentMethod?
+  refunds       Refund[]
+  updatedAt     DateTime                  @updatedAt
 }
 
 model Refund {
@@ -136,16 +149,17 @@ model Refund {
   updatedAt  DateTime  @updatedAt
 }
 
-model Payment {
-  amount        Float?
-  createdAt     DateTime                  @default(now())
-  id            String                    @id @default(cuid())
-  order         Order?                    @relation(fields: [orderId], references: [id])
-  orderId       String?
-  paymentDate   DateTime?
-  paymentMethod EnumPaymentPaymentMethod?
-  refunds       Refund[]
-  updatedAt     DateTime                  @updatedAt
+model Shipping {
+  createdAt      DateTime                    @default(now())
+  deliveries     Delivery[]
+  id             String                      @id @default(cuid())
+  order          Order?                      @relation(fields: [orderId], references: [id])
+  orderId        String?
+  shippingCost   Float?
+  shippingDate   DateTime?
+  shippingMethod EnumShippingShippingMethod?
+  trackingNumber String?
+  updatedAt      DateTime                    @updatedAt
 }
 
 model Delivery {
@@ -159,17 +173,12 @@ model Delivery {
   updatedAt       DateTime                    @updatedAt
 }
 
-model Shipping {
-  createdAt      DateTime                    @default(now())
-  deliveries     Delivery[]
-  id             String                      @id @default(cuid())
-  order          Order?                      @relation(fields: [orderId], references: [id])
-  orderId        String?
-  shippingCost   Float?
-  shippingDate   DateTime?
-  shippingMethod EnumShippingShippingMethod?
-  trackingNumber String?
-  updatedAt      DateTime                    @updatedAt
+model Faq {
+  answer    String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  question  String?
+  updatedAt DateTime @updatedAt
 }
 
 model HelpDesk {
@@ -197,14 +206,6 @@ model Feedback {
   userId      String?
 }
 
-model Faq {
-  answer    String?
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  question  String?
-  updatedAt DateTime @updatedAt
-}
-
 model AdminDashboard {
   adminUser     String?
   createdAt     DateTime @default(now())
@@ -230,6 +231,38 @@ model SiteSettings {
   updatedAt    DateTime @updatedAt
 }
 
+model Discount {
+  code           String?
+  createdAt      DateTime  @default(now())
+  description    String?
+  discountAmount Float?
+  id             String    @id @default(cuid())
+  updatedAt      DateTime  @updatedAt
+  validFrom      DateTime?
+  validTo        DateTime?
+}
+
+model EmailCampaign {
+  content    String?
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  recipients Json?
+  sentDate   DateTime?
+  subject    String?
+  updatedAt  DateTime  @updatedAt
+}
+
+model LoyaltyProgram {
+  createdAt  DateTime                @default(now())
+  earnedDate DateTime?
+  id         String                  @id @default(cuid())
+  points     Int?
+  tier       EnumLoyaltyProgramTier?
+  updatedAt  DateTime                @updatedAt
+  user       User?                   @relation(fields: [userId], references: [id])
+  userId     String?
+}
+
 enum EnumUserRole {
   Option1
 }
@@ -242,11 +275,11 @@ enum EnumPaymentPaymentMethod {
   Option1
 }
 
-enum EnumDeliveryDeliveryStatus {
+enum EnumShippingShippingMethod {
   Option1
 }
 
-enum EnumShippingShippingMethod {
+enum EnumDeliveryDeliveryStatus {
   Option1
 }
 
@@ -255,5 +288,9 @@ enum EnumHelpDeskIssueType {
 }
 
 enum EnumHelpDeskStatus {
+  Option1
+}
+
+enum EnumLoyaltyProgramTier {
   Option1
 }

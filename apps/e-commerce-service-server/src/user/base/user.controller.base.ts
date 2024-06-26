@@ -31,6 +31,9 @@ import { FeedbackWhereUniqueInput } from "../../feedback/base/FeedbackWhereUniqu
 import { HelpDeskFindManyArgs } from "../../helpDesk/base/HelpDeskFindManyArgs";
 import { HelpDesk } from "../../helpDesk/base/HelpDesk";
 import { HelpDeskWhereUniqueInput } from "../../helpDesk/base/HelpDeskWhereUniqueInput";
+import { LoyaltyProgramFindManyArgs } from "../../loyaltyProgram/base/LoyaltyProgramFindManyArgs";
+import { LoyaltyProgram } from "../../loyaltyProgram/base/LoyaltyProgram";
+import { LoyaltyProgramWhereUniqueInput } from "../../loyaltyProgram/base/LoyaltyProgramWhereUniqueInput";
 import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
 import { Order } from "../../order/base/Order";
 import { OrderWhereUniqueInput } from "../../order/base/OrderWhereUniqueInput";
@@ -423,6 +426,89 @@ export class UserControllerBase {
   ): Promise<void> {
     const data = {
       helpDesks: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Get("/:id/loyaltyPrograms")
+  @ApiNestedQuery(LoyaltyProgramFindManyArgs)
+  async findLoyaltyPrograms(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<LoyaltyProgram[]> {
+    const query = plainToClass(LoyaltyProgramFindManyArgs, request.query);
+    const results = await this.service.findLoyaltyPrograms(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        earnedDate: true,
+        id: true,
+        points: true,
+        tier: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/loyaltyPrograms")
+  async connectLoyaltyPrograms(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: LoyaltyProgramWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      loyaltyPrograms: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/loyaltyPrograms")
+  async updateLoyaltyPrograms(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: LoyaltyProgramWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      loyaltyPrograms: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/loyaltyPrograms")
+  async disconnectLoyaltyPrograms(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: LoyaltyProgramWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      loyaltyPrograms: {
         disconnect: body,
       },
     };

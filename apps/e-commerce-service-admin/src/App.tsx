@@ -5,26 +5,26 @@ import { theme } from "./theme/theme";
 import Login from "./Login";
 import "./App.scss";
 import Dashboard from "./pages/Dashboard";
-import { UserProfileList } from "./userProfile/UserProfileList";
-import { UserProfileCreate } from "./userProfile/UserProfileCreate";
-import { UserProfileEdit } from "./userProfile/UserProfileEdit";
-import { UserProfileShow } from "./userProfile/UserProfileShow";
 import { UserRoleList } from "./userRole/UserRoleList";
 import { UserRoleCreate } from "./userRole/UserRoleCreate";
 import { UserRoleEdit } from "./userRole/UserRoleEdit";
 import { UserRoleShow } from "./userRole/UserRoleShow";
+import { UserProfileList } from "./userProfile/UserProfileList";
+import { UserProfileCreate } from "./userProfile/UserProfileCreate";
+import { UserProfileEdit } from "./userProfile/UserProfileEdit";
+import { UserProfileShow } from "./userProfile/UserProfileShow";
 import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
 import { UserShow } from "./user/UserShow";
-import { CategoryList } from "./category/CategoryList";
-import { CategoryCreate } from "./category/CategoryCreate";
-import { CategoryEdit } from "./category/CategoryEdit";
-import { CategoryShow } from "./category/CategoryShow";
 import { ProductList } from "./product/ProductList";
 import { ProductCreate } from "./product/ProductCreate";
 import { ProductEdit } from "./product/ProductEdit";
 import { ProductShow } from "./product/ProductShow";
+import { CategoryList } from "./category/CategoryList";
+import { CategoryCreate } from "./category/CategoryCreate";
+import { CategoryEdit } from "./category/CategoryEdit";
+import { CategoryShow } from "./category/CategoryShow";
 import { SearchList } from "./search/SearchList";
 import { SearchCreate } from "./search/SearchCreate";
 import { SearchEdit } from "./search/SearchEdit";
@@ -37,38 +37,42 @@ import { RecommendationList } from "./recommendation/RecommendationList";
 import { RecommendationCreate } from "./recommendation/RecommendationCreate";
 import { RecommendationEdit } from "./recommendation/RecommendationEdit";
 import { RecommendationShow } from "./recommendation/RecommendationShow";
-import { CartList } from "./cart/CartList";
-import { CartCreate } from "./cart/CartCreate";
-import { CartEdit } from "./cart/CartEdit";
-import { CartShow } from "./cart/CartShow";
 import { WishlistList } from "./wishlist/WishlistList";
 import { WishlistCreate } from "./wishlist/WishlistCreate";
 import { WishlistEdit } from "./wishlist/WishlistEdit";
 import { WishlistShow } from "./wishlist/WishlistShow";
-import { OrderList } from "./order/OrderList";
-import { OrderCreate } from "./order/OrderCreate";
-import { OrderEdit } from "./order/OrderEdit";
-import { OrderShow } from "./order/OrderShow";
+import { CartList } from "./cart/CartList";
+import { CartCreate } from "./cart/CartCreate";
+import { CartEdit } from "./cart/CartEdit";
+import { CartShow } from "./cart/CartShow";
 import { OrderStatusList } from "./orderStatus/OrderStatusList";
 import { OrderStatusCreate } from "./orderStatus/OrderStatusCreate";
 import { OrderStatusEdit } from "./orderStatus/OrderStatusEdit";
 import { OrderStatusShow } from "./orderStatus/OrderStatusShow";
-import { RefundList } from "./refund/RefundList";
-import { RefundCreate } from "./refund/RefundCreate";
-import { RefundEdit } from "./refund/RefundEdit";
-import { RefundShow } from "./refund/RefundShow";
+import { OrderList } from "./order/OrderList";
+import { OrderCreate } from "./order/OrderCreate";
+import { OrderEdit } from "./order/OrderEdit";
+import { OrderShow } from "./order/OrderShow";
 import { PaymentList } from "./payment/PaymentList";
 import { PaymentCreate } from "./payment/PaymentCreate";
 import { PaymentEdit } from "./payment/PaymentEdit";
 import { PaymentShow } from "./payment/PaymentShow";
-import { DeliveryList } from "./delivery/DeliveryList";
-import { DeliveryCreate } from "./delivery/DeliveryCreate";
-import { DeliveryEdit } from "./delivery/DeliveryEdit";
-import { DeliveryShow } from "./delivery/DeliveryShow";
+import { RefundList } from "./refund/RefundList";
+import { RefundCreate } from "./refund/RefundCreate";
+import { RefundEdit } from "./refund/RefundEdit";
+import { RefundShow } from "./refund/RefundShow";
 import { ShippingList } from "./shipping/ShippingList";
 import { ShippingCreate } from "./shipping/ShippingCreate";
 import { ShippingEdit } from "./shipping/ShippingEdit";
 import { ShippingShow } from "./shipping/ShippingShow";
+import { DeliveryList } from "./delivery/DeliveryList";
+import { DeliveryCreate } from "./delivery/DeliveryCreate";
+import { DeliveryEdit } from "./delivery/DeliveryEdit";
+import { DeliveryShow } from "./delivery/DeliveryShow";
+import { FaqList } from "./faq/FaqList";
+import { FaqCreate } from "./faq/FaqCreate";
+import { FaqEdit } from "./faq/FaqEdit";
+import { FaqShow } from "./faq/FaqShow";
 import { HelpDeskList } from "./helpDesk/HelpDeskList";
 import { HelpDeskCreate } from "./helpDesk/HelpDeskCreate";
 import { HelpDeskEdit } from "./helpDesk/HelpDeskEdit";
@@ -77,10 +81,6 @@ import { FeedbackList } from "./feedback/FeedbackList";
 import { FeedbackCreate } from "./feedback/FeedbackCreate";
 import { FeedbackEdit } from "./feedback/FeedbackEdit";
 import { FeedbackShow } from "./feedback/FeedbackShow";
-import { FaqList } from "./faq/FaqList";
-import { FaqCreate } from "./faq/FaqCreate";
-import { FaqEdit } from "./faq/FaqEdit";
-import { FaqShow } from "./faq/FaqShow";
 import { AdminDashboardList } from "./adminDashboard/AdminDashboardList";
 import { AdminDashboardCreate } from "./adminDashboard/AdminDashboardCreate";
 import { AdminDashboardEdit } from "./adminDashboard/AdminDashboardEdit";
@@ -93,6 +93,18 @@ import { SiteSettingsList } from "./siteSettings/SiteSettingsList";
 import { SiteSettingsCreate } from "./siteSettings/SiteSettingsCreate";
 import { SiteSettingsEdit } from "./siteSettings/SiteSettingsEdit";
 import { SiteSettingsShow } from "./siteSettings/SiteSettingsShow";
+import { DiscountList } from "./discount/DiscountList";
+import { DiscountCreate } from "./discount/DiscountCreate";
+import { DiscountEdit } from "./discount/DiscountEdit";
+import { DiscountShow } from "./discount/DiscountShow";
+import { EmailCampaignList } from "./emailCampaign/EmailCampaignList";
+import { EmailCampaignCreate } from "./emailCampaign/EmailCampaignCreate";
+import { EmailCampaignEdit } from "./emailCampaign/EmailCampaignEdit";
+import { EmailCampaignShow } from "./emailCampaign/EmailCampaignShow";
+import { LoyaltyProgramList } from "./loyaltyProgram/LoyaltyProgramList";
+import { LoyaltyProgramCreate } from "./loyaltyProgram/LoyaltyProgramCreate";
+import { LoyaltyProgramEdit } from "./loyaltyProgram/LoyaltyProgramEdit";
+import { LoyaltyProgramShow } from "./loyaltyProgram/LoyaltyProgramShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -120,18 +132,18 @@ const App = (): React.ReactElement => {
         loginPage={Login}
       >
         <Resource
-          name="UserProfile"
-          list={UserProfileList}
-          edit={UserProfileEdit}
-          create={UserProfileCreate}
-          show={UserProfileShow}
-        />
-        <Resource
           name="UserRole"
           list={UserRoleList}
           edit={UserRoleEdit}
           create={UserRoleCreate}
           show={UserRoleShow}
+        />
+        <Resource
+          name="UserProfile"
+          list={UserProfileList}
+          edit={UserProfileEdit}
+          create={UserProfileCreate}
+          show={UserProfileShow}
         />
         <Resource
           name="User"
@@ -141,18 +153,18 @@ const App = (): React.ReactElement => {
           show={UserShow}
         />
         <Resource
-          name="Category"
-          list={CategoryList}
-          edit={CategoryEdit}
-          create={CategoryCreate}
-          show={CategoryShow}
-        />
-        <Resource
           name="Product"
           list={ProductList}
           edit={ProductEdit}
           create={ProductCreate}
           show={ProductShow}
+        />
+        <Resource
+          name="Category"
+          list={CategoryList}
+          edit={CategoryEdit}
+          create={CategoryCreate}
+          show={CategoryShow}
         />
         <Resource
           name="Search"
@@ -176,13 +188,6 @@ const App = (): React.ReactElement => {
           show={RecommendationShow}
         />
         <Resource
-          name="Cart"
-          list={CartList}
-          edit={CartEdit}
-          create={CartCreate}
-          show={CartShow}
-        />
-        <Resource
           name="Wishlist"
           list={WishlistList}
           edit={WishlistEdit}
@@ -190,11 +195,11 @@ const App = (): React.ReactElement => {
           show={WishlistShow}
         />
         <Resource
-          name="Order"
-          list={OrderList}
-          edit={OrderEdit}
-          create={OrderCreate}
-          show={OrderShow}
+          name="Cart"
+          list={CartList}
+          edit={CartEdit}
+          create={CartCreate}
+          show={CartShow}
         />
         <Resource
           name="OrderStatus"
@@ -204,11 +209,11 @@ const App = (): React.ReactElement => {
           show={OrderStatusShow}
         />
         <Resource
-          name="Refund"
-          list={RefundList}
-          edit={RefundEdit}
-          create={RefundCreate}
-          show={RefundShow}
+          name="Order"
+          list={OrderList}
+          edit={OrderEdit}
+          create={OrderCreate}
+          show={OrderShow}
         />
         <Resource
           name="Payment"
@@ -218,11 +223,11 @@ const App = (): React.ReactElement => {
           show={PaymentShow}
         />
         <Resource
-          name="Delivery"
-          list={DeliveryList}
-          edit={DeliveryEdit}
-          create={DeliveryCreate}
-          show={DeliveryShow}
+          name="Refund"
+          list={RefundList}
+          edit={RefundEdit}
+          create={RefundCreate}
+          show={RefundShow}
         />
         <Resource
           name="Shipping"
@@ -230,6 +235,20 @@ const App = (): React.ReactElement => {
           edit={ShippingEdit}
           create={ShippingCreate}
           show={ShippingShow}
+        />
+        <Resource
+          name="Delivery"
+          list={DeliveryList}
+          edit={DeliveryEdit}
+          create={DeliveryCreate}
+          show={DeliveryShow}
+        />
+        <Resource
+          name="Faq"
+          list={FaqList}
+          edit={FaqEdit}
+          create={FaqCreate}
+          show={FaqShow}
         />
         <Resource
           name="HelpDesk"
@@ -244,13 +263,6 @@ const App = (): React.ReactElement => {
           edit={FeedbackEdit}
           create={FeedbackCreate}
           show={FeedbackShow}
-        />
-        <Resource
-          name="Faq"
-          list={FaqList}
-          edit={FaqEdit}
-          create={FaqCreate}
-          show={FaqShow}
         />
         <Resource
           name="AdminDashboard"
@@ -272,6 +284,27 @@ const App = (): React.ReactElement => {
           edit={SiteSettingsEdit}
           create={SiteSettingsCreate}
           show={SiteSettingsShow}
+        />
+        <Resource
+          name="Discount"
+          list={DiscountList}
+          edit={DiscountEdit}
+          create={DiscountCreate}
+          show={DiscountShow}
+        />
+        <Resource
+          name="EmailCampaign"
+          list={EmailCampaignList}
+          edit={EmailCampaignEdit}
+          create={EmailCampaignCreate}
+          show={EmailCampaignShow}
+        />
+        <Resource
+          name="LoyaltyProgram"
+          list={LoyaltyProgramList}
+          edit={LoyaltyProgramEdit}
+          create={LoyaltyProgramCreate}
+          show={LoyaltyProgramShow}
         />
       </Admin>
     </div>

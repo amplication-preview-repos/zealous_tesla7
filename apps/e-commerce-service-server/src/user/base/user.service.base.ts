@@ -17,6 +17,7 @@ import {
   Cart as PrismaCart,
   Feedback as PrismaFeedback,
   HelpDesk as PrismaHelpDesk,
+  LoyaltyProgram as PrismaLoyaltyProgram,
   Order as PrismaOrder,
   Recommendation as PrismaRecommendation,
   UserProfile as PrismaUserProfile,
@@ -77,6 +78,17 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .helpDesks(args);
+  }
+
+  async findLoyaltyPrograms(
+    parentId: string,
+    args: Prisma.LoyaltyProgramFindManyArgs
+  ): Promise<PrismaLoyaltyProgram[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .loyaltyPrograms(args);
   }
 
   async findOrders(

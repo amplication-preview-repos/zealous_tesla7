@@ -22,6 +22,7 @@ import {
 import { Type } from "class-transformer";
 import { FeedbackUpdateManyWithoutUsersInput } from "./FeedbackUpdateManyWithoutUsersInput";
 import { HelpDeskUpdateManyWithoutUsersInput } from "./HelpDeskUpdateManyWithoutUsersInput";
+import { LoyaltyProgramUpdateManyWithoutUsersInput } from "./LoyaltyProgramUpdateManyWithoutUsersInput";
 import { OrderUpdateManyWithoutUsersInput } from "./OrderUpdateManyWithoutUsersInput";
 import { RecommendationUpdateManyWithoutUsersInput } from "./RecommendationUpdateManyWithoutUsersInput";
 import { EnumUserRole } from "./EnumUserRole";
@@ -103,6 +104,18 @@ class UserUpdateInput {
     nullable: true,
   })
   lastName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => LoyaltyProgramUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => LoyaltyProgramUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => LoyaltyProgramUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  loyaltyPrograms?: LoyaltyProgramUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

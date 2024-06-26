@@ -1,26 +1,29 @@
 import { Module } from "@nestjs/common";
-import { UserProfileModule } from "./userProfile/userProfile.module";
 import { UserRoleModule } from "./userRole/userRole.module";
+import { UserProfileModule } from "./userProfile/userProfile.module";
 import { UserModule } from "./user/user.module";
-import { CategoryModule } from "./category/category.module";
 import { ProductModule } from "./product/product.module";
+import { CategoryModule } from "./category/category.module";
 import { SearchModule } from "./search/search.module";
 import { FilterModule } from "./filter/filter.module";
 import { RecommendationModule } from "./recommendation/recommendation.module";
-import { CartModule } from "./cart/cart.module";
 import { WishlistModule } from "./wishlist/wishlist.module";
-import { OrderModule } from "./order/order.module";
+import { CartModule } from "./cart/cart.module";
 import { OrderStatusModule } from "./orderStatus/orderStatus.module";
-import { RefundModule } from "./refund/refund.module";
+import { OrderModule } from "./order/order.module";
 import { PaymentModule } from "./payment/payment.module";
-import { DeliveryModule } from "./delivery/delivery.module";
+import { RefundModule } from "./refund/refund.module";
 import { ShippingModule } from "./shipping/shipping.module";
+import { DeliveryModule } from "./delivery/delivery.module";
+import { FaqModule } from "./faq/faq.module";
 import { HelpDeskModule } from "./helpDesk/helpDesk.module";
 import { FeedbackModule } from "./feedback/feedback.module";
-import { FaqModule } from "./faq/faq.module";
 import { AdminDashboardModule } from "./adminDashboard/adminDashboard.module";
 import { ContentManagementModule } from "./contentManagement/contentManagement.module";
 import { SiteSettingsModule } from "./siteSettings/siteSettings.module";
+import { DiscountModule } from "./discount/discount.module";
+import { EmailCampaignModule } from "./emailCampaign/emailCampaign.module";
+import { LoyaltyProgramModule } from "./loyaltyProgram/loyaltyProgram.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -33,28 +36,31 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 @Module({
   controllers: [],
   imports: [
-    UserProfileModule,
     UserRoleModule,
+    UserProfileModule,
     UserModule,
-    CategoryModule,
     ProductModule,
+    CategoryModule,
     SearchModule,
     FilterModule,
     RecommendationModule,
-    CartModule,
     WishlistModule,
-    OrderModule,
+    CartModule,
     OrderStatusModule,
-    RefundModule,
+    OrderModule,
     PaymentModule,
-    DeliveryModule,
+    RefundModule,
     ShippingModule,
+    DeliveryModule,
+    FaqModule,
     HelpDeskModule,
     FeedbackModule,
-    FaqModule,
     AdminDashboardModule,
     ContentManagementModule,
     SiteSettingsModule,
+    DiscountModule,
+    EmailCampaignModule,
+    LoyaltyProgramModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

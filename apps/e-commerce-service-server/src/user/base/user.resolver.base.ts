@@ -26,6 +26,8 @@ import { FeedbackFindManyArgs } from "../../feedback/base/FeedbackFindManyArgs";
 import { Feedback } from "../../feedback/base/Feedback";
 import { HelpDeskFindManyArgs } from "../../helpDesk/base/HelpDeskFindManyArgs";
 import { HelpDesk } from "../../helpDesk/base/HelpDesk";
+import { LoyaltyProgramFindManyArgs } from "../../loyaltyProgram/base/LoyaltyProgramFindManyArgs";
+import { LoyaltyProgram } from "../../loyaltyProgram/base/LoyaltyProgram";
 import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
 import { Order } from "../../order/base/Order";
 import { RecommendationFindManyArgs } from "../../recommendation/base/RecommendationFindManyArgs";
@@ -135,6 +137,20 @@ export class UserResolverBase {
     @graphql.Args() args: HelpDeskFindManyArgs
   ): Promise<HelpDesk[]> {
     const results = await this.service.findHelpDesks(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [LoyaltyProgram], { name: "loyaltyPrograms" })
+  async findLoyaltyPrograms(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: LoyaltyProgramFindManyArgs
+  ): Promise<LoyaltyProgram[]> {
+    const results = await this.service.findLoyaltyPrograms(parent.id, args);
 
     if (!results) {
       return [];
