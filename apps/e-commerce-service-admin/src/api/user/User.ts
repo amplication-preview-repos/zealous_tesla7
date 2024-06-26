@@ -1,4 +1,6 @@
 import { Cart } from "../cart/Cart";
+import { Feedback } from "../feedback/Feedback";
+import { HelpDesk } from "../helpDesk/HelpDesk";
 import { Order } from "../order/Order";
 import { Recommendation } from "../recommendation/Recommendation";
 import { JsonValue } from "type-fest";
@@ -9,7 +11,9 @@ export type User = {
   carts?: Array<Cart>;
   createdAt: Date;
   email: string | null;
+  feedbacks?: Array<Feedback>;
   firstName: string | null;
+  helpDesks?: Array<HelpDesk>;
   id: string;
   lastName: string | null;
   orders?: Array<Order>;

@@ -11,8 +11,9 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
+import { IsDate, ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { Feedback } from "../../feedback/base/Feedback";
 import { Recommendation } from "../../recommendation/base/Recommendation";
 
 @ObjectType()
@@ -24,6 +25,15 @@ class Product {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Feedback],
+  })
+  @ValidateNested()
+  @Type(() => Feedback)
+  @IsOptional()
+  feedbacks?: Array<Feedback>;
 
   @ApiProperty({
     required: true,

@@ -38,6 +38,48 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
           </Datagrid>
         </ReferenceManyField>
+        <ReferenceManyField
+          reference="Feedback"
+          target="userId"
+          label="Feedbacks"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="comments" source="comments" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="createdDate" source="createdDate" />
+            <TextField label="ID" source="id" />
+            <ReferenceField
+              label="product"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="rating" source="rating" />
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="user" source="user.id" reference="User">
+              <TextField source={USER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="HelpDesk"
+          target="userId"
+          label="HelpDesks"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="createdDate" source="createdDate" />
+            <TextField label="description" source="description" />
+            <TextField label="ID" source="id" />
+            <TextField label="issueType" source="issueType" />
+            <TextField label="status" source="status" />
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="user" source="user.id" reference="User">
+              <TextField source={USER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
         <ReferenceManyField reference="Order" target="userId" label="Orders">
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />

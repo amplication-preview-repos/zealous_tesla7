@@ -15,6 +15,8 @@ import {
   Prisma,
   User as PrismaUser,
   Cart as PrismaCart,
+  Feedback as PrismaFeedback,
+  HelpDesk as PrismaHelpDesk,
   Order as PrismaOrder,
   Recommendation as PrismaRecommendation,
   UserProfile as PrismaUserProfile,
@@ -53,6 +55,28 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .carts(args);
+  }
+
+  async findFeedbacks(
+    parentId: string,
+    args: Prisma.FeedbackFindManyArgs
+  ): Promise<PrismaFeedback[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .feedbacks(args);
+  }
+
+  async findHelpDesks(
+    parentId: string,
+    args: Prisma.HelpDeskFindManyArgs
+  ): Promise<PrismaHelpDesk[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .helpDesks(args);
   }
 
   async findOrders(

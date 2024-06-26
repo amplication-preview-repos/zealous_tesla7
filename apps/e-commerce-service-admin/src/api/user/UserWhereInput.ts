@@ -1,5 +1,7 @@
 import { CartListRelationFilter } from "../cart/CartListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { FeedbackListRelationFilter } from "../feedback/FeedbackListRelationFilter";
+import { HelpDeskListRelationFilter } from "../helpDesk/HelpDeskListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { OrderListRelationFilter } from "../order/OrderListRelationFilter";
 import { RecommendationListRelationFilter } from "../recommendation/RecommendationListRelationFilter";
@@ -9,7 +11,9 @@ import { WishlistListRelationFilter } from "../wishlist/WishlistListRelationFilt
 export type UserWhereInput = {
   carts?: CartListRelationFilter;
   email?: StringNullableFilter;
+  feedbacks?: FeedbackListRelationFilter;
   firstName?: StringNullableFilter;
+  helpDesks?: HelpDeskListRelationFilter;
   id?: StringFilter;
   lastName?: StringNullableFilter;
   orders?: OrderListRelationFilter;

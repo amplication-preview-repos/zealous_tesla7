@@ -20,6 +20,8 @@ import { ProductFindUniqueArgs } from "./ProductFindUniqueArgs";
 import { CreateProductArgs } from "./CreateProductArgs";
 import { UpdateProductArgs } from "./UpdateProductArgs";
 import { DeleteProductArgs } from "./DeleteProductArgs";
+import { FeedbackFindManyArgs } from "../../feedback/base/FeedbackFindManyArgs";
+import { Feedback } from "../../feedback/base/Feedback";
 import { RecommendationFindManyArgs } from "../../recommendation/base/RecommendationFindManyArgs";
 import { Recommendation } from "../../recommendation/base/Recommendation";
 import { ProductService } from "../product.service";
@@ -97,6 +99,20 @@ export class ProductResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [Feedback], { name: "feedbacks" })
+  async findFeedbacks(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: FeedbackFindManyArgs
+  ): Promise<Feedback[]> {
+    const results = await this.service.findFeedbacks(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @graphql.ResolveField(() => [Recommendation], { name: "recommendations" })

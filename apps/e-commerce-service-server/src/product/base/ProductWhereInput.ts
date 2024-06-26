@@ -11,13 +11,26 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { FeedbackListRelationFilter } from "../../feedback/base/FeedbackListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { StringFilter } from "../../util/StringFilter";
 import { RecommendationListRelationFilter } from "../../recommendation/base/RecommendationListRelationFilter";
 
 @InputType()
 class ProductWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => FeedbackListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => FeedbackListRelationFilter)
+  @IsOptional()
+  @Field(() => FeedbackListRelationFilter, {
+    nullable: true,
+  })
+  feedbacks?: FeedbackListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: StringFilter,

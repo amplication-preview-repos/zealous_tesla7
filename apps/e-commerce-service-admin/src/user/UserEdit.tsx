@@ -12,6 +12,8 @@ import {
 } from "react-admin";
 
 import { CartTitle } from "../cart/CartTitle";
+import { FeedbackTitle } from "../feedback/FeedbackTitle";
+import { HelpDeskTitle } from "../helpDesk/HelpDeskTitle";
 import { OrderTitle } from "../order/OrderTitle";
 import { RecommendationTitle } from "../recommendation/RecommendationTitle";
 import { UserProfileTitle } from "../userProfile/UserProfileTitle";
@@ -31,7 +33,23 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
           <SelectArrayInput optionText={CartTitle} />
         </ReferenceArrayInput>
         <TextInput label="Email" source="email" type="email" />
+        <ReferenceArrayInput
+          source="feedbacks"
+          reference="Feedback"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={FeedbackTitle} />
+        </ReferenceArrayInput>
         <TextInput label="First Name" source="firstName" />
+        <ReferenceArrayInput
+          source="helpDesks"
+          reference="HelpDesk"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={HelpDeskTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Last Name" source="lastName" />
         <ReferenceArrayInput
           source="orders"

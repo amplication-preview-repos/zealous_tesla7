@@ -22,6 +22,9 @@ import { Product } from "./Product";
 import { ProductFindManyArgs } from "./ProductFindManyArgs";
 import { ProductWhereUniqueInput } from "./ProductWhereUniqueInput";
 import { ProductUpdateInput } from "./ProductUpdateInput";
+import { FeedbackFindManyArgs } from "../../feedback/base/FeedbackFindManyArgs";
+import { Feedback } from "../../feedback/base/Feedback";
+import { FeedbackWhereUniqueInput } from "../../feedback/base/FeedbackWhereUniqueInput";
 import { RecommendationFindManyArgs } from "../../recommendation/base/RecommendationFindManyArgs";
 import { Recommendation } from "../../recommendation/base/Recommendation";
 import { RecommendationWhereUniqueInput } from "../../recommendation/base/RecommendationWhereUniqueInput";
@@ -130,6 +133,96 @@ export class ProductControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/feedbacks")
+  @ApiNestedQuery(FeedbackFindManyArgs)
+  async findFeedbacks(
+    @common.Req() request: Request,
+    @common.Param() params: ProductWhereUniqueInput
+  ): Promise<Feedback[]> {
+    const query = plainToClass(FeedbackFindManyArgs, request.query);
+    const results = await this.service.findFeedbacks(params.id, {
+      ...query,
+      select: {
+        comments: true,
+        createdAt: true,
+        createdDate: true,
+        id: true,
+
+        product: {
+          select: {
+            id: true,
+          },
+        },
+
+        rating: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/feedbacks")
+  async connectFeedbacks(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: FeedbackWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      feedbacks: {
+        connect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/feedbacks")
+  async updateFeedbacks(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: FeedbackWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      feedbacks: {
+        set: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/feedbacks")
+  async disconnectFeedbacks(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: FeedbackWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      feedbacks: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.Get("/:id/recommendations")

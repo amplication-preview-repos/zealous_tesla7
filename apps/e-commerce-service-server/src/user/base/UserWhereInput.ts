@@ -15,6 +15,8 @@ import { CartListRelationFilter } from "../../cart/base/CartListRelationFilter";
 import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { FeedbackListRelationFilter } from "../../feedback/base/FeedbackListRelationFilter";
+import { HelpDeskListRelationFilter } from "../../helpDesk/base/HelpDeskListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { OrderListRelationFilter } from "../../order/base/OrderListRelationFilter";
 import { RecommendationListRelationFilter } from "../../recommendation/base/RecommendationListRelationFilter";
@@ -49,6 +51,18 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => FeedbackListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => FeedbackListRelationFilter)
+  @IsOptional()
+  @Field(() => FeedbackListRelationFilter, {
+    nullable: true,
+  })
+  feedbacks?: FeedbackListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -57,6 +71,18 @@ class UserWhereInput {
     nullable: true,
   })
   firstName?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => HelpDeskListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => HelpDeskListRelationFilter)
+  @IsOptional()
+  @Field(() => HelpDeskListRelationFilter, {
+    nullable: true,
+  })
+  helpDesks?: HelpDeskListRelationFilter;
 
   @ApiProperty({
     required: false,

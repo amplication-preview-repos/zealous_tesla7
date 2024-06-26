@@ -21,6 +21,8 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Feedback } from "../../feedback/base/Feedback";
+import { HelpDesk } from "../../helpDesk/base/HelpDesk";
 import { Order } from "../../order/base/Order";
 import { Recommendation } from "../../recommendation/base/Recommendation";
 import { EnumUserRole } from "./EnumUserRole";
@@ -62,6 +64,15 @@ class User {
 
   @ApiProperty({
     required: false,
+    type: () => [Feedback],
+  })
+  @ValidateNested()
+  @Type(() => Feedback)
+  @IsOptional()
+  feedbacks?: Array<Feedback>;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -71,6 +82,15 @@ class User {
     nullable: true,
   })
   firstName!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [HelpDesk],
+  })
+  @ValidateNested()
+  @Type(() => HelpDesk)
+  @IsOptional()
+  helpDesks?: Array<HelpDesk>;
 
   @ApiProperty({
     required: true,

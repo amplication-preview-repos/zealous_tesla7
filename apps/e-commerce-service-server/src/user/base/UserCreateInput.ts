@@ -20,6 +20,8 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { FeedbackCreateNestedManyWithoutUsersInput } from "./FeedbackCreateNestedManyWithoutUsersInput";
+import { HelpDeskCreateNestedManyWithoutUsersInput } from "./HelpDeskCreateNestedManyWithoutUsersInput";
 import { OrderCreateNestedManyWithoutUsersInput } from "./OrderCreateNestedManyWithoutUsersInput";
 import { RecommendationCreateNestedManyWithoutUsersInput } from "./RecommendationCreateNestedManyWithoutUsersInput";
 import { EnumUserRole } from "./EnumUserRole";
@@ -56,6 +58,18 @@ class UserCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => FeedbackCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => FeedbackCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => FeedbackCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  feedbacks?: FeedbackCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -65,6 +79,18 @@ class UserCreateInput {
     nullable: true,
   })
   firstName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => HelpDeskCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => HelpDeskCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => HelpDeskCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  helpDesks?: HelpDeskCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

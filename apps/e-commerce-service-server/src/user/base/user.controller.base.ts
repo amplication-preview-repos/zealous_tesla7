@@ -25,6 +25,12 @@ import { UserUpdateInput } from "./UserUpdateInput";
 import { CartFindManyArgs } from "../../cart/base/CartFindManyArgs";
 import { Cart } from "../../cart/base/Cart";
 import { CartWhereUniqueInput } from "../../cart/base/CartWhereUniqueInput";
+import { FeedbackFindManyArgs } from "../../feedback/base/FeedbackFindManyArgs";
+import { Feedback } from "../../feedback/base/Feedback";
+import { FeedbackWhereUniqueInput } from "../../feedback/base/FeedbackWhereUniqueInput";
+import { HelpDeskFindManyArgs } from "../../helpDesk/base/HelpDeskFindManyArgs";
+import { HelpDesk } from "../../helpDesk/base/HelpDesk";
+import { HelpDeskWhereUniqueInput } from "../../helpDesk/base/HelpDeskWhereUniqueInput";
 import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
 import { Order } from "../../order/base/Order";
 import { OrderWhereUniqueInput } from "../../order/base/OrderWhereUniqueInput";
@@ -243,6 +249,180 @@ export class UserControllerBase {
   ): Promise<void> {
     const data = {
       carts: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Get("/:id/feedbacks")
+  @ApiNestedQuery(FeedbackFindManyArgs)
+  async findFeedbacks(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Feedback[]> {
+    const query = plainToClass(FeedbackFindManyArgs, request.query);
+    const results = await this.service.findFeedbacks(params.id, {
+      ...query,
+      select: {
+        comments: true,
+        createdAt: true,
+        createdDate: true,
+        id: true,
+
+        product: {
+          select: {
+            id: true,
+          },
+        },
+
+        rating: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/feedbacks")
+  async connectFeedbacks(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: FeedbackWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      feedbacks: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/feedbacks")
+  async updateFeedbacks(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: FeedbackWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      feedbacks: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/feedbacks")
+  async disconnectFeedbacks(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: FeedbackWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      feedbacks: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Get("/:id/helpDesks")
+  @ApiNestedQuery(HelpDeskFindManyArgs)
+  async findHelpDesks(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<HelpDesk[]> {
+    const query = plainToClass(HelpDeskFindManyArgs, request.query);
+    const results = await this.service.findHelpDesks(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        createdDate: true,
+        description: true,
+        id: true,
+        issueType: true,
+        status: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/helpDesks")
+  async connectHelpDesks(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: HelpDeskWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      helpDesks: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/helpDesks")
+  async updateHelpDesks(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: HelpDeskWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      helpDesks: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/helpDesks")
+  async disconnectHelpDesks(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: HelpDeskWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      helpDesks: {
         disconnect: body,
       },
     };

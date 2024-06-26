@@ -15,6 +15,9 @@ import { RefundModule } from "./refund/refund.module";
 import { PaymentModule } from "./payment/payment.module";
 import { DeliveryModule } from "./delivery/delivery.module";
 import { ShippingModule } from "./shipping/shipping.module";
+import { HelpDeskModule } from "./helpDesk/helpDesk.module";
+import { FeedbackModule } from "./feedback/feedback.module";
+import { FaqModule } from "./faq/faq.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -43,6 +46,9 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
     PaymentModule,
     DeliveryModule,
     ShippingModule,
+    HelpDeskModule,
+    FeedbackModule,
+    FaqModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

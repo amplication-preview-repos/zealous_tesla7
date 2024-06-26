@@ -20,6 +20,8 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { FeedbackUpdateManyWithoutUsersInput } from "./FeedbackUpdateManyWithoutUsersInput";
+import { HelpDeskUpdateManyWithoutUsersInput } from "./HelpDeskUpdateManyWithoutUsersInput";
 import { OrderUpdateManyWithoutUsersInput } from "./OrderUpdateManyWithoutUsersInput";
 import { RecommendationUpdateManyWithoutUsersInput } from "./RecommendationUpdateManyWithoutUsersInput";
 import { EnumUserRole } from "./EnumUserRole";
@@ -56,6 +58,18 @@ class UserUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => FeedbackUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => FeedbackUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => FeedbackUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  feedbacks?: FeedbackUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -65,6 +79,18 @@ class UserUpdateInput {
     nullable: true,
   })
   firstName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => HelpDeskUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => HelpDeskUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => HelpDeskUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  helpDesks?: HelpDeskUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

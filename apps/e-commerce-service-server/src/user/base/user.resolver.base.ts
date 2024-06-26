@@ -22,6 +22,10 @@ import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
 import { CartFindManyArgs } from "../../cart/base/CartFindManyArgs";
 import { Cart } from "../../cart/base/Cart";
+import { FeedbackFindManyArgs } from "../../feedback/base/FeedbackFindManyArgs";
+import { Feedback } from "../../feedback/base/Feedback";
+import { HelpDeskFindManyArgs } from "../../helpDesk/base/HelpDeskFindManyArgs";
+import { HelpDesk } from "../../helpDesk/base/HelpDesk";
 import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
 import { Order } from "../../order/base/Order";
 import { RecommendationFindManyArgs } from "../../recommendation/base/RecommendationFindManyArgs";
@@ -103,6 +107,34 @@ export class UserResolverBase {
     @graphql.Args() args: CartFindManyArgs
   ): Promise<Cart[]> {
     const results = await this.service.findCarts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [Feedback], { name: "feedbacks" })
+  async findFeedbacks(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: FeedbackFindManyArgs
+  ): Promise<Feedback[]> {
+    const results = await this.service.findFeedbacks(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [HelpDesk], { name: "helpDesks" })
+  async findHelpDesks(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: HelpDeskFindManyArgs
+  ): Promise<HelpDesk[]> {
+    const results = await this.service.findHelpDesks(parent.id, args);
 
     if (!results) {
       return [];

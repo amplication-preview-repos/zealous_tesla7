@@ -69,6 +69,18 @@ import { ShippingList } from "./shipping/ShippingList";
 import { ShippingCreate } from "./shipping/ShippingCreate";
 import { ShippingEdit } from "./shipping/ShippingEdit";
 import { ShippingShow } from "./shipping/ShippingShow";
+import { HelpDeskList } from "./helpDesk/HelpDeskList";
+import { HelpDeskCreate } from "./helpDesk/HelpDeskCreate";
+import { HelpDeskEdit } from "./helpDesk/HelpDeskEdit";
+import { HelpDeskShow } from "./helpDesk/HelpDeskShow";
+import { FeedbackList } from "./feedback/FeedbackList";
+import { FeedbackCreate } from "./feedback/FeedbackCreate";
+import { FeedbackEdit } from "./feedback/FeedbackEdit";
+import { FeedbackShow } from "./feedback/FeedbackShow";
+import { FaqList } from "./faq/FaqList";
+import { FaqCreate } from "./faq/FaqCreate";
+import { FaqEdit } from "./faq/FaqEdit";
+import { FaqShow } from "./faq/FaqShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -206,6 +218,27 @@ const App = (): React.ReactElement => {
           edit={ShippingEdit}
           create={ShippingCreate}
           show={ShippingShow}
+        />
+        <Resource
+          name="HelpDesk"
+          list={HelpDeskList}
+          edit={HelpDeskEdit}
+          create={HelpDeskCreate}
+          show={HelpDeskShow}
+        />
+        <Resource
+          name="Feedback"
+          list={FeedbackList}
+          edit={FeedbackEdit}
+          create={FeedbackCreate}
+          show={FeedbackShow}
+        />
+        <Resource
+          name="Faq"
+          list={FaqList}
+          edit={FaqEdit}
+          create={FaqCreate}
+          show={FaqShow}
         />
       </Admin>
     </div>
