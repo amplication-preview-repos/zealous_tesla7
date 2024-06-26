@@ -81,6 +81,18 @@ import { FaqList } from "./faq/FaqList";
 import { FaqCreate } from "./faq/FaqCreate";
 import { FaqEdit } from "./faq/FaqEdit";
 import { FaqShow } from "./faq/FaqShow";
+import { AdminDashboardList } from "./adminDashboard/AdminDashboardList";
+import { AdminDashboardCreate } from "./adminDashboard/AdminDashboardCreate";
+import { AdminDashboardEdit } from "./adminDashboard/AdminDashboardEdit";
+import { AdminDashboardShow } from "./adminDashboard/AdminDashboardShow";
+import { ContentManagementList } from "./contentManagement/ContentManagementList";
+import { ContentManagementCreate } from "./contentManagement/ContentManagementCreate";
+import { ContentManagementEdit } from "./contentManagement/ContentManagementEdit";
+import { ContentManagementShow } from "./contentManagement/ContentManagementShow";
+import { SiteSettingsList } from "./siteSettings/SiteSettingsList";
+import { SiteSettingsCreate } from "./siteSettings/SiteSettingsCreate";
+import { SiteSettingsEdit } from "./siteSettings/SiteSettingsEdit";
+import { SiteSettingsShow } from "./siteSettings/SiteSettingsShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -239,6 +251,27 @@ const App = (): React.ReactElement => {
           edit={FaqEdit}
           create={FaqCreate}
           show={FaqShow}
+        />
+        <Resource
+          name="AdminDashboard"
+          list={AdminDashboardList}
+          edit={AdminDashboardEdit}
+          create={AdminDashboardCreate}
+          show={AdminDashboardShow}
+        />
+        <Resource
+          name="ContentManagement"
+          list={ContentManagementList}
+          edit={ContentManagementEdit}
+          create={ContentManagementCreate}
+          show={ContentManagementShow}
+        />
+        <Resource
+          name="SiteSettings"
+          list={SiteSettingsList}
+          edit={SiteSettingsEdit}
+          create={SiteSettingsCreate}
+          show={SiteSettingsShow}
         />
       </Admin>
     </div>

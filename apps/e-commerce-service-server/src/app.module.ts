@@ -18,6 +18,9 @@ import { ShippingModule } from "./shipping/shipping.module";
 import { HelpDeskModule } from "./helpDesk/helpDesk.module";
 import { FeedbackModule } from "./feedback/feedback.module";
 import { FaqModule } from "./faq/faq.module";
+import { AdminDashboardModule } from "./adminDashboard/adminDashboard.module";
+import { ContentManagementModule } from "./contentManagement/contentManagement.module";
+import { SiteSettingsModule } from "./siteSettings/siteSettings.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -49,6 +52,9 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
     HelpDeskModule,
     FeedbackModule,
     FaqModule,
+    AdminDashboardModule,
+    ContentManagementModule,
+    SiteSettingsModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

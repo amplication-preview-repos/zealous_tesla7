@@ -205,6 +205,31 @@ model Faq {
   updatedAt DateTime @updatedAt
 }
 
+model AdminDashboard {
+  adminUser     String?
+  createdAt     DateTime @default(now())
+  dashboardData Json?
+  id            String   @id @default(cuid())
+  updatedAt     DateTime @updatedAt
+}
+
+model ContentManagement {
+  content     String?
+  createdAt   DateTime  @default(now())
+  id          String    @id @default(cuid())
+  publishDate DateTime?
+  title       String?
+  updatedAt   DateTime  @updatedAt
+}
+
+model SiteSettings {
+  createdAt    DateTime @default(now())
+  id           String   @id @default(cuid())
+  settingName  String?
+  settingValue Json?
+  updatedAt    DateTime @updatedAt
+}
+
 enum EnumUserRole {
   Option1
 }
