@@ -21,6 +21,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { OrderStatusCreateNestedManyWithoutOrdersInput } from "./OrderStatusCreateNestedManyWithoutOrdersInput";
+import { PaymentCreateNestedManyWithoutOrdersInput } from "./PaymentCreateNestedManyWithoutOrdersInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -47,6 +48,18 @@ class OrderCreateInput {
     nullable: true,
   })
   orderStatuses?: OrderStatusCreateNestedManyWithoutOrdersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentCreateNestedManyWithoutOrdersInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentCreateNestedManyWithoutOrdersInput)
+  @IsOptional()
+  @Field(() => PaymentCreateNestedManyWithoutOrdersInput, {
+    nullable: true,
+  })
+  payments?: PaymentCreateNestedManyWithoutOrdersInput;
 
   @ApiProperty({
     required: false,

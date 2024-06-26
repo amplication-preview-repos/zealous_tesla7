@@ -11,6 +11,8 @@ import { CartModule } from "./cart/cart.module";
 import { WishlistModule } from "./wishlist/wishlist.module";
 import { OrderModule } from "./order/order.module";
 import { OrderStatusModule } from "./orderStatus/orderStatus.module";
+import { RefundModule } from "./refund/refund.module";
+import { PaymentModule } from "./payment/payment.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -35,6 +37,8 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
     WishlistModule,
     OrderModule,
     OrderStatusModule,
+    RefundModule,
+    PaymentModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

@@ -22,6 +22,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { OrderStatus } from "../../orderStatus/base/OrderStatus";
+import { Payment } from "../../payment/base/Payment";
 import { User } from "../../user/base/User";
 
 @ObjectType()
@@ -61,6 +62,15 @@ class Order {
   @Type(() => OrderStatus)
   @IsOptional()
   orderStatuses?: Array<OrderStatus>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Payment],
+  })
+  @ValidateNested()
+  @Type(() => Payment)
+  @IsOptional()
+  payments?: Array<Payment>;
 
   @ApiProperty({
     required: false,

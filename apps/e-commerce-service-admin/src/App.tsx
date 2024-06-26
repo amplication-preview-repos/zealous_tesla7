@@ -53,6 +53,14 @@ import { OrderStatusList } from "./orderStatus/OrderStatusList";
 import { OrderStatusCreate } from "./orderStatus/OrderStatusCreate";
 import { OrderStatusEdit } from "./orderStatus/OrderStatusEdit";
 import { OrderStatusShow } from "./orderStatus/OrderStatusShow";
+import { RefundList } from "./refund/RefundList";
+import { RefundCreate } from "./refund/RefundCreate";
+import { RefundEdit } from "./refund/RefundEdit";
+import { RefundShow } from "./refund/RefundShow";
+import { PaymentList } from "./payment/PaymentList";
+import { PaymentCreate } from "./payment/PaymentCreate";
+import { PaymentEdit } from "./payment/PaymentEdit";
+import { PaymentShow } from "./payment/PaymentShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -162,6 +170,20 @@ const App = (): React.ReactElement => {
           edit={OrderStatusEdit}
           create={OrderStatusCreate}
           show={OrderStatusShow}
+        />
+        <Resource
+          name="Refund"
+          list={RefundList}
+          edit={RefundEdit}
+          create={RefundCreate}
+          show={RefundShow}
+        />
+        <Resource
+          name="Payment"
+          list={PaymentList}
+          edit={PaymentEdit}
+          create={PaymentCreate}
+          show={PaymentShow}
         />
       </Admin>
     </div>

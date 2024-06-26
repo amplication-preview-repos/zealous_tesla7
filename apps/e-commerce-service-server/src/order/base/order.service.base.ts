@@ -15,6 +15,7 @@ import {
   Prisma,
   Order as PrismaOrder,
   OrderStatus as PrismaOrderStatus,
+  Payment as PrismaPayment,
   User as PrismaUser,
 } from "@prisma/client";
 
@@ -50,6 +51,17 @@ export class OrderServiceBase {
         where: { id: parentId },
       })
       .orderStatuses(args);
+  }
+
+  async findPayments(
+    parentId: string,
+    args: Prisma.PaymentFindManyArgs
+  ): Promise<PrismaPayment[]> {
+    return this.prisma.order
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .payments(args);
   }
 
   async getUser(parentId: string): Promise<PrismaUser | null> {

@@ -16,6 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { OrderStatusListRelationFilter } from "../../orderStatus/base/OrderStatusListRelationFilter";
+import { PaymentListRelationFilter } from "../../payment/base/PaymentListRelationFilter";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
@@ -54,6 +55,18 @@ class OrderWhereInput {
     nullable: true,
   })
   orderStatuses?: OrderStatusListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PaymentListRelationFilter)
+  @IsOptional()
+  @Field(() => PaymentListRelationFilter, {
+    nullable: true,
+  })
+  payments?: PaymentListRelationFilter;
 
   @ApiProperty({
     required: false,
