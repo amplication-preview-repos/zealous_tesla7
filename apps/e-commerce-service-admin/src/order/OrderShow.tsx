@@ -58,6 +58,24 @@ export const OrderShow = (props: ShowProps): React.ReactElement => {
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>
+        <ReferenceManyField
+          reference="Shipping"
+          target="orderId"
+          label="Shippings"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <ReferenceField label="order" source="order.id" reference="Order">
+              <TextField source={ORDER_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="shippingCost" source="shippingCost" />
+            <TextField label="shippingDate" source="shippingDate" />
+            <TextField label="shippingMethod" source="shippingMethod" />
+            <TextField label="trackingNumber" source="trackingNumber" />
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
       </SimpleShowLayout>
     </Show>
   );

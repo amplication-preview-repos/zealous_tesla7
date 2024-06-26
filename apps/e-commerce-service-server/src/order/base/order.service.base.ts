@@ -16,6 +16,7 @@ import {
   Order as PrismaOrder,
   OrderStatus as PrismaOrderStatus,
   Payment as PrismaPayment,
+  Shipping as PrismaShipping,
   User as PrismaUser,
 } from "@prisma/client";
 
@@ -62,6 +63,17 @@ export class OrderServiceBase {
         where: { id: parentId },
       })
       .payments(args);
+  }
+
+  async findShippings(
+    parentId: string,
+    args: Prisma.ShippingFindManyArgs
+  ): Promise<PrismaShipping[]> {
+    return this.prisma.order
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .shippings(args);
   }
 
   async getUser(parentId: string): Promise<PrismaUser | null> {

@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
-import { UserRoleModule } from "./userRole/userRole.module";
 import { UserProfileModule } from "./userProfile/userProfile.module";
+import { UserRoleModule } from "./userRole/userRole.module";
 import { UserModule } from "./user/user.module";
 import { CategoryModule } from "./category/category.module";
 import { ProductModule } from "./product/product.module";
@@ -13,6 +13,8 @@ import { OrderModule } from "./order/order.module";
 import { OrderStatusModule } from "./orderStatus/orderStatus.module";
 import { RefundModule } from "./refund/refund.module";
 import { PaymentModule } from "./payment/payment.module";
+import { DeliveryModule } from "./delivery/delivery.module";
+import { ShippingModule } from "./shipping/shipping.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -25,8 +27,8 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 @Module({
   controllers: [],
   imports: [
-    UserRoleModule,
     UserProfileModule,
+    UserRoleModule,
     UserModule,
     CategoryModule,
     ProductModule,
@@ -39,6 +41,8 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
     OrderStatusModule,
     RefundModule,
     PaymentModule,
+    DeliveryModule,
+    ShippingModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

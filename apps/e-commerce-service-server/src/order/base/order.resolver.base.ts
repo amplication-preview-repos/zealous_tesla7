@@ -24,6 +24,8 @@ import { OrderStatusFindManyArgs } from "../../orderStatus/base/OrderStatusFindM
 import { OrderStatus } from "../../orderStatus/base/OrderStatus";
 import { PaymentFindManyArgs } from "../../payment/base/PaymentFindManyArgs";
 import { Payment } from "../../payment/base/Payment";
+import { ShippingFindManyArgs } from "../../shipping/base/ShippingFindManyArgs";
+import { Shipping } from "../../shipping/base/Shipping";
 import { User } from "../../user/base/User";
 import { OrderService } from "../order.service";
 @graphql.Resolver(() => Order)
@@ -134,6 +136,20 @@ export class OrderResolverBase {
     @graphql.Args() args: PaymentFindManyArgs
   ): Promise<Payment[]> {
     const results = await this.service.findPayments(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [Shipping], { name: "shippings" })
+  async findShippings(
+    @graphql.Parent() parent: Order,
+    @graphql.Args() args: ShippingFindManyArgs
+  ): Promise<Shipping[]> {
+    const results = await this.service.findShippings(parent.id, args);
 
     if (!results) {
       return [];

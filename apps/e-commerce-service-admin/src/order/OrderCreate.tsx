@@ -14,6 +14,7 @@ import {
 
 import { OrderStatusTitle } from "../orderStatus/OrderStatusTitle";
 import { PaymentTitle } from "../payment/PaymentTitle";
+import { ShippingTitle } from "../shipping/ShippingTitle";
 import { UserTitle } from "../user/UserTitle";
 
 export const OrderCreate = (props: CreateProps): React.ReactElement => {
@@ -36,6 +37,14 @@ export const OrderCreate = (props: CreateProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={PaymentTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="shippings"
+          reference="Shipping"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ShippingTitle} />
         </ReferenceArrayInput>
         <NumberInput label="totalAmount" source="totalAmount" />
         <ReferenceInput source="user.id" reference="User" label="user">

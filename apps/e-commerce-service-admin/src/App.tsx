@@ -5,14 +5,14 @@ import { theme } from "./theme/theme";
 import Login from "./Login";
 import "./App.scss";
 import Dashboard from "./pages/Dashboard";
-import { UserRoleList } from "./userRole/UserRoleList";
-import { UserRoleCreate } from "./userRole/UserRoleCreate";
-import { UserRoleEdit } from "./userRole/UserRoleEdit";
-import { UserRoleShow } from "./userRole/UserRoleShow";
 import { UserProfileList } from "./userProfile/UserProfileList";
 import { UserProfileCreate } from "./userProfile/UserProfileCreate";
 import { UserProfileEdit } from "./userProfile/UserProfileEdit";
 import { UserProfileShow } from "./userProfile/UserProfileShow";
+import { UserRoleList } from "./userRole/UserRoleList";
+import { UserRoleCreate } from "./userRole/UserRoleCreate";
+import { UserRoleEdit } from "./userRole/UserRoleEdit";
+import { UserRoleShow } from "./userRole/UserRoleShow";
 import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
@@ -61,6 +61,14 @@ import { PaymentList } from "./payment/PaymentList";
 import { PaymentCreate } from "./payment/PaymentCreate";
 import { PaymentEdit } from "./payment/PaymentEdit";
 import { PaymentShow } from "./payment/PaymentShow";
+import { DeliveryList } from "./delivery/DeliveryList";
+import { DeliveryCreate } from "./delivery/DeliveryCreate";
+import { DeliveryEdit } from "./delivery/DeliveryEdit";
+import { DeliveryShow } from "./delivery/DeliveryShow";
+import { ShippingList } from "./shipping/ShippingList";
+import { ShippingCreate } from "./shipping/ShippingCreate";
+import { ShippingEdit } from "./shipping/ShippingEdit";
+import { ShippingShow } from "./shipping/ShippingShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -88,18 +96,18 @@ const App = (): React.ReactElement => {
         loginPage={Login}
       >
         <Resource
-          name="UserRole"
-          list={UserRoleList}
-          edit={UserRoleEdit}
-          create={UserRoleCreate}
-          show={UserRoleShow}
-        />
-        <Resource
           name="UserProfile"
           list={UserProfileList}
           edit={UserProfileEdit}
           create={UserProfileCreate}
           show={UserProfileShow}
+        />
+        <Resource
+          name="UserRole"
+          list={UserRoleList}
+          edit={UserRoleEdit}
+          create={UserRoleCreate}
+          show={UserRoleShow}
         />
         <Resource
           name="User"
@@ -184,6 +192,20 @@ const App = (): React.ReactElement => {
           edit={PaymentEdit}
           create={PaymentCreate}
           show={PaymentShow}
+        />
+        <Resource
+          name="Delivery"
+          list={DeliveryList}
+          edit={DeliveryEdit}
+          create={DeliveryCreate}
+          show={DeliveryShow}
+        />
+        <Resource
+          name="Shipping"
+          list={ShippingList}
+          edit={ShippingEdit}
+          create={ShippingCreate}
+          show={ShippingShow}
         />
       </Admin>
     </div>

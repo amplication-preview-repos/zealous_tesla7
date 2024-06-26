@@ -22,6 +22,7 @@ import {
 import { Type } from "class-transformer";
 import { OrderStatusCreateNestedManyWithoutOrdersInput } from "./OrderStatusCreateNestedManyWithoutOrdersInput";
 import { PaymentCreateNestedManyWithoutOrdersInput } from "./PaymentCreateNestedManyWithoutOrdersInput";
+import { ShippingCreateNestedManyWithoutOrdersInput } from "./ShippingCreateNestedManyWithoutOrdersInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -60,6 +61,18 @@ class OrderCreateInput {
     nullable: true,
   })
   payments?: PaymentCreateNestedManyWithoutOrdersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ShippingCreateNestedManyWithoutOrdersInput,
+  })
+  @ValidateNested()
+  @Type(() => ShippingCreateNestedManyWithoutOrdersInput)
+  @IsOptional()
+  @Field(() => ShippingCreateNestedManyWithoutOrdersInput, {
+    nullable: true,
+  })
+  shippings?: ShippingCreateNestedManyWithoutOrdersInput;
 
   @ApiProperty({
     required: false,

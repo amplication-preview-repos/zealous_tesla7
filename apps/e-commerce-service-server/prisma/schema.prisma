@@ -7,14 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model UserRole {
-  createdAt       DateTime @default(now())
-  id              String   @id @default(cuid())
-  roleDescription String?
-  roleName        String?
-  updatedAt       DateTime @updatedAt
-}
-
 model UserProfile {
   address     String?
   createdAt   DateTime @default(now())
@@ -25,6 +17,14 @@ model UserProfile {
   updatedAt   DateTime @updatedAt
   user        User?    @relation(fields: [userId], references: [id])
   userId      String?
+}
+
+model UserRole {
+  createdAt       DateTime @default(now())
+  id              String   @id @default(cuid())
+  roleDescription String?
+  roleName        String?
+  updatedAt       DateTime @updatedAt
 }
 
 model User {
@@ -106,6 +106,7 @@ model Order {
   orderDate     DateTime?
   orderStatuses OrderStatus[]
   payments      Payment[]
+  shippings     Shipping[]
   totalAmount   Float?
   updatedAt     DateTime      @updatedAt
   user          User?         @relation(fields: [userId], references: [id])
@@ -144,6 +145,30 @@ model Payment {
   updatedAt     DateTime                  @updatedAt
 }
 
+model Delivery {
+  createdAt       DateTime                    @default(now())
+  deliveryAddress String?
+  deliveryDate    DateTime?
+  deliveryStatus  EnumDeliveryDeliveryStatus?
+  id              String                      @id @default(cuid())
+  shipping        Shipping?                   @relation(fields: [shippingId], references: [id])
+  shippingId      String?
+  updatedAt       DateTime                    @updatedAt
+}
+
+model Shipping {
+  createdAt      DateTime                    @default(now())
+  deliveries     Delivery[]
+  id             String                      @id @default(cuid())
+  order          Order?                      @relation(fields: [orderId], references: [id])
+  orderId        String?
+  shippingCost   Float?
+  shippingDate   DateTime?
+  shippingMethod EnumShippingShippingMethod?
+  trackingNumber String?
+  updatedAt      DateTime                    @updatedAt
+}
+
 enum EnumUserRole {
   Option1
 }
@@ -153,5 +178,13 @@ enum EnumOrderStatusStatus {
 }
 
 enum EnumPaymentPaymentMethod {
+  Option1
+}
+
+enum EnumDeliveryDeliveryStatus {
+  Option1
+}
+
+enum EnumShippingShippingMethod {
   Option1
 }

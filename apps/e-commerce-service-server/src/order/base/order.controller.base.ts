@@ -28,6 +28,9 @@ import { OrderStatusWhereUniqueInput } from "../../orderStatus/base/OrderStatusW
 import { PaymentFindManyArgs } from "../../payment/base/PaymentFindManyArgs";
 import { Payment } from "../../payment/base/Payment";
 import { PaymentWhereUniqueInput } from "../../payment/base/PaymentWhereUniqueInput";
+import { ShippingFindManyArgs } from "../../shipping/base/ShippingFindManyArgs";
+import { Shipping } from "../../shipping/base/Shipping";
+import { ShippingWhereUniqueInput } from "../../shipping/base/ShippingWhereUniqueInput";
 
 export class OrderControllerBase {
   constructor(protected readonly service: OrderService) {}
@@ -345,6 +348,91 @@ export class OrderControllerBase {
   ): Promise<void> {
     const data = {
       payments: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateOrder({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Get("/:id/shippings")
+  @ApiNestedQuery(ShippingFindManyArgs)
+  async findShippings(
+    @common.Req() request: Request,
+    @common.Param() params: OrderWhereUniqueInput
+  ): Promise<Shipping[]> {
+    const query = plainToClass(ShippingFindManyArgs, request.query);
+    const results = await this.service.findShippings(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+
+        order: {
+          select: {
+            id: true,
+          },
+        },
+
+        shippingCost: true,
+        shippingDate: true,
+        shippingMethod: true,
+        trackingNumber: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/shippings")
+  async connectShippings(
+    @common.Param() params: OrderWhereUniqueInput,
+    @common.Body() body: ShippingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      shippings: {
+        connect: body,
+      },
+    };
+    await this.service.updateOrder({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/shippings")
+  async updateShippings(
+    @common.Param() params: OrderWhereUniqueInput,
+    @common.Body() body: ShippingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      shippings: {
+        set: body,
+      },
+    };
+    await this.service.updateOrder({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/shippings")
+  async disconnectShippings(
+    @common.Param() params: OrderWhereUniqueInput,
+    @common.Body() body: ShippingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      shippings: {
         disconnect: body,
       },
     };
