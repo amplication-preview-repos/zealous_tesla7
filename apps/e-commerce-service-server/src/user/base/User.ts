@@ -11,12 +11,13 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { Cart } from "../../cart/base/Cart";
 import {
+  ValidateNested,
+  IsOptional,
   IsDate,
   IsString,
-  IsOptional,
   MaxLength,
-  ValidateNested,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
@@ -26,9 +27,19 @@ import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { UserProfile } from "../../userProfile/base/UserProfile";
+import { Wishlist } from "../../wishlist/base/Wishlist";
 
 @ObjectType()
 class User {
+  @ApiProperty({
+    required: false,
+    type: () => [Cart],
+  })
+  @ValidateNested()
+  @Type(() => Cart)
+  @IsOptional()
+  carts?: Array<Cart>;
+
   @ApiProperty({
     required: true,
   })
@@ -131,6 +142,15 @@ class User {
   @Type(() => UserProfile)
   @IsOptional()
   userProfiles?: Array<UserProfile>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Wishlist],
+  })
+  @ValidateNested()
+  @Type(() => Wishlist)
+  @IsOptional()
+  wishlists?: Array<Wishlist>;
 }
 
 export { User as User };

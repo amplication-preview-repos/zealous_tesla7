@@ -22,12 +22,18 @@ import { User } from "./User";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserUpdateInput } from "./UserUpdateInput";
+import { CartFindManyArgs } from "../../cart/base/CartFindManyArgs";
+import { Cart } from "../../cart/base/Cart";
+import { CartWhereUniqueInput } from "../../cart/base/CartWhereUniqueInput";
 import { RecommendationFindManyArgs } from "../../recommendation/base/RecommendationFindManyArgs";
 import { Recommendation } from "../../recommendation/base/Recommendation";
 import { RecommendationWhereUniqueInput } from "../../recommendation/base/RecommendationWhereUniqueInput";
 import { UserProfileFindManyArgs } from "../../userProfile/base/UserProfileFindManyArgs";
 import { UserProfile } from "../../userProfile/base/UserProfile";
 import { UserProfileWhereUniqueInput } from "../../userProfile/base/UserProfileWhereUniqueInput";
+import { WishlistFindManyArgs } from "../../wishlist/base/WishlistFindManyArgs";
+import { Wishlist } from "../../wishlist/base/Wishlist";
+import { WishlistWhereUniqueInput } from "../../wishlist/base/WishlistWhereUniqueInput";
 
 export class UserControllerBase {
   constructor(protected readonly service: UserService) {}
@@ -161,6 +167,87 @@ export class UserControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/carts")
+  @ApiNestedQuery(CartFindManyArgs)
+  async findCarts(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Cart[]> {
+    const query = plainToClass(CartFindManyArgs, request.query);
+    const results = await this.service.findCarts(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        totalPrice: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/carts")
+  async connectCarts(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: CartWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      carts: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/carts")
+  async updateCarts(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: CartWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      carts: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/carts")
+  async disconnectCarts(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: CartWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      carts: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.Get("/:id/recommendations")
@@ -324,6 +411,86 @@ export class UserControllerBase {
   ): Promise<void> {
     const data = {
       userProfiles: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Get("/:id/wishlists")
+  @ApiNestedQuery(WishlistFindManyArgs)
+  async findWishlists(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Wishlist[]> {
+    const query = plainToClass(WishlistFindManyArgs, request.query);
+    const results = await this.service.findWishlists(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/wishlists")
+  async connectWishlists(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: WishlistWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      wishlists: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/wishlists")
+  async updateWishlists(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: WishlistWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      wishlists: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/wishlists")
+  async disconnectWishlists(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: WishlistWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      wishlists: {
         disconnect: body,
       },
     };

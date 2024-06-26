@@ -11,8 +11,8 @@ import {
   ReferenceField,
 } from "react-admin";
 
-import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
 import { USER_TITLE_FIELD } from "./UserTitle";
+import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
 
 export const UserShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -27,6 +27,17 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Roles" source="roles" />
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="Username" source="username" />
+        <ReferenceManyField reference="Cart" target="userId" label="Carts">
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <TextField label="totalPrice" source="totalPrice" />
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="user" source="user.id" reference="User">
+              <TextField source={USER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
         <ReferenceManyField
           reference="Recommendation"
           target="userId"
@@ -60,6 +71,20 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
             <TextField label="ID" source="id" />
             <TextField label="lastName" source="lastName" />
             <TextField label="phoneNumber" source="phoneNumber" />
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="user" source="user.id" reference="User">
+              <TextField source={USER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="Wishlist"
+          target="userId"
+          label="Wishlists"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
             <DateField source="updatedAt" label="Updated At" />
             <ReferenceField label="user" source="user.id" reference="User">
               <TextField source={USER_TITLE_FIELD} />

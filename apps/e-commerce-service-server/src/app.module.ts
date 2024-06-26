@@ -7,6 +7,8 @@ import { ProductModule } from "./product/product.module";
 import { SearchModule } from "./search/search.module";
 import { FilterModule } from "./filter/filter.module";
 import { RecommendationModule } from "./recommendation/recommendation.module";
+import { CartModule } from "./cart/cart.module";
+import { WishlistModule } from "./wishlist/wishlist.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -27,6 +29,8 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
     SearchModule,
     FilterModule,
     RecommendationModule,
+    CartModule,
+    WishlistModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

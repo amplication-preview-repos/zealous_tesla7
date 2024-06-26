@@ -20,10 +20,14 @@ import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { CreateUserArgs } from "./CreateUserArgs";
 import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
+import { CartFindManyArgs } from "../../cart/base/CartFindManyArgs";
+import { Cart } from "../../cart/base/Cart";
 import { RecommendationFindManyArgs } from "../../recommendation/base/RecommendationFindManyArgs";
 import { Recommendation } from "../../recommendation/base/Recommendation";
 import { UserProfileFindManyArgs } from "../../userProfile/base/UserProfileFindManyArgs";
 import { UserProfile } from "../../userProfile/base/UserProfile";
+import { WishlistFindManyArgs } from "../../wishlist/base/WishlistFindManyArgs";
+import { Wishlist } from "../../wishlist/base/Wishlist";
 import { UserService } from "../user.service";
 @graphql.Resolver(() => User)
 export class UserResolverBase {
@@ -91,6 +95,20 @@ export class UserResolverBase {
     }
   }
 
+  @graphql.ResolveField(() => [Cart], { name: "carts" })
+  async findCarts(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: CartFindManyArgs
+  ): Promise<Cart[]> {
+    const results = await this.service.findCarts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
   @graphql.ResolveField(() => [Recommendation], { name: "recommendations" })
   async findRecommendations(
     @graphql.Parent() parent: User,
@@ -111,6 +129,20 @@ export class UserResolverBase {
     @graphql.Args() args: UserProfileFindManyArgs
   ): Promise<UserProfile[]> {
     const results = await this.service.findUserProfiles(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [Wishlist], { name: "wishlists" })
+  async findWishlists(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: WishlistFindManyArgs
+  ): Promise<Wishlist[]> {
+    const results = await this.service.findWishlists(parent.id, args);
 
     if (!results) {
       return [];

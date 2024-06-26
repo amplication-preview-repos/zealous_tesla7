@@ -14,8 +14,10 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   User as PrismaUser,
+  Cart as PrismaCart,
   Recommendation as PrismaRecommendation,
   UserProfile as PrismaUserProfile,
+  Wishlist as PrismaWishlist,
 } from "@prisma/client";
 
 export class UserServiceBase {
@@ -41,6 +43,17 @@ export class UserServiceBase {
     return this.prisma.user.delete(args);
   }
 
+  async findCarts(
+    parentId: string,
+    args: Prisma.CartFindManyArgs
+  ): Promise<PrismaCart[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .carts(args);
+  }
+
   async findRecommendations(
     parentId: string,
     args: Prisma.RecommendationFindManyArgs
@@ -61,5 +74,16 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .userProfiles(args);
+  }
+
+  async findWishlists(
+    parentId: string,
+    args: Prisma.WishlistFindManyArgs
+  ): Promise<PrismaWishlist[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .wishlists(args);
   }
 }

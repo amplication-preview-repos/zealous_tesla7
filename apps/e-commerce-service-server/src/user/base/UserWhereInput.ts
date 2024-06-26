@@ -11,16 +11,30 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { CartListRelationFilter } from "../../cart/base/CartListRelationFilter";
+import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { RecommendationListRelationFilter } from "../../recommendation/base/RecommendationListRelationFilter";
 import { EnumUserRole } from "./EnumUserRole";
 import { UserProfileListRelationFilter } from "../../userProfile/base/UserProfileListRelationFilter";
+import { WishlistListRelationFilter } from "../../wishlist/base/WishlistListRelationFilter";
 
 @InputType()
 class UserWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => CartListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => CartListRelationFilter)
+  @IsOptional()
+  @Field(() => CartListRelationFilter, {
+    nullable: true,
+  })
+  carts?: CartListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: StringNullableFilter,
@@ -110,6 +124,18 @@ class UserWhereInput {
     nullable: true,
   })
   userProfiles?: UserProfileListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WishlistListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WishlistListRelationFilter)
+  @IsOptional()
+  @Field(() => WishlistListRelationFilter, {
+    nullable: true,
+  })
+  wishlists?: WishlistListRelationFilter;
 }
 
 export { UserWhereInput as UserWhereInput };

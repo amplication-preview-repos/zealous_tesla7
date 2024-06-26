@@ -1,8 +1,11 @@
+import { CartCreateNestedManyWithoutUsersInput } from "./CartCreateNestedManyWithoutUsersInput";
 import { RecommendationCreateNestedManyWithoutUsersInput } from "./RecommendationCreateNestedManyWithoutUsersInput";
 import { InputJsonValue } from "../../types";
 import { UserProfileCreateNestedManyWithoutUsersInput } from "./UserProfileCreateNestedManyWithoutUsersInput";
+import { WishlistCreateNestedManyWithoutUsersInput } from "./WishlistCreateNestedManyWithoutUsersInput";
 
 export type UserCreateInput = {
+  carts?: CartCreateNestedManyWithoutUsersInput;
   email?: string | null;
   firstName?: string | null;
   lastName?: string | null;
@@ -12,4 +15,5 @@ export type UserCreateInput = {
   roles: InputJsonValue;
   username: string;
   userProfiles?: UserProfileCreateNestedManyWithoutUsersInput;
+  wishlists?: WishlistCreateNestedManyWithoutUsersInput;
 };

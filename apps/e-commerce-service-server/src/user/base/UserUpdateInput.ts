@@ -11,23 +11,37 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { CartUpdateManyWithoutUsersInput } from "./CartUpdateManyWithoutUsersInput";
 import {
-  IsString,
-  IsOptional,
-  MaxLength,
   ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
   IsEnum,
 } from "class-validator";
-import { RecommendationUpdateManyWithoutUsersInput } from "./RecommendationUpdateManyWithoutUsersInput";
 import { Type } from "class-transformer";
+import { RecommendationUpdateManyWithoutUsersInput } from "./RecommendationUpdateManyWithoutUsersInput";
 import { EnumUserRole } from "./EnumUserRole";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { UserProfileUpdateManyWithoutUsersInput } from "./UserProfileUpdateManyWithoutUsersInput";
+import { WishlistUpdateManyWithoutUsersInput } from "./WishlistUpdateManyWithoutUsersInput";
 
 @InputType()
 class UserUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => CartUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => CartUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => CartUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  carts?: CartUpdateManyWithoutUsersInput;
+
   @ApiProperty({
     required: false,
     type: String,
@@ -129,6 +143,18 @@ class UserUpdateInput {
     nullable: true,
   })
   userProfiles?: UserProfileUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WishlistUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => WishlistUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => WishlistUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  wishlists?: WishlistUpdateManyWithoutUsersInput;
 }
 
 export { UserUpdateInput as UserUpdateInput };

@@ -37,6 +37,14 @@ import { RecommendationList } from "./recommendation/RecommendationList";
 import { RecommendationCreate } from "./recommendation/RecommendationCreate";
 import { RecommendationEdit } from "./recommendation/RecommendationEdit";
 import { RecommendationShow } from "./recommendation/RecommendationShow";
+import { CartList } from "./cart/CartList";
+import { CartCreate } from "./cart/CartCreate";
+import { CartEdit } from "./cart/CartEdit";
+import { CartShow } from "./cart/CartShow";
+import { WishlistList } from "./wishlist/WishlistList";
+import { WishlistCreate } from "./wishlist/WishlistCreate";
+import { WishlistEdit } from "./wishlist/WishlistEdit";
+import { WishlistShow } from "./wishlist/WishlistShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -118,6 +126,20 @@ const App = (): React.ReactElement => {
           edit={RecommendationEdit}
           create={RecommendationCreate}
           show={RecommendationShow}
+        />
+        <Resource
+          name="Cart"
+          list={CartList}
+          edit={CartEdit}
+          create={CartCreate}
+          show={CartShow}
+        />
+        <Resource
+          name="Wishlist"
+          list={WishlistList}
+          edit={WishlistEdit}
+          create={WishlistCreate}
+          show={WishlistShow}
         />
       </Admin>
     </div>
