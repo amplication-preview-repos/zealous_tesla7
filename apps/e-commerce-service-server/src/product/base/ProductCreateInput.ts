@@ -9,5 +9,25 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class ProductCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { RecommendationCreateNestedManyWithoutProductsInput } from "./RecommendationCreateNestedManyWithoutProductsInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+
+@InputType()
+class ProductCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => RecommendationCreateNestedManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => RecommendationCreateNestedManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => RecommendationCreateNestedManyWithoutProductsInput, {
+    nullable: true,
+  })
+  recommendations?: RecommendationCreateNestedManyWithoutProductsInput;
+}
+
 export { ProductCreateInput as ProductCreateInput };

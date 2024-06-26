@@ -15,15 +15,16 @@ import {
   IsString,
   IsOptional,
   MaxLength,
-  IsEnum,
   ValidateNested,
+  IsEnum,
 } from "class-validator";
+import { RecommendationUpdateManyWithoutUsersInput } from "./RecommendationUpdateManyWithoutUsersInput";
+import { Type } from "class-transformer";
 import { EnumUserRole } from "./EnumUserRole";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { UserProfileUpdateManyWithoutUsersInput } from "./UserProfileUpdateManyWithoutUsersInput";
-import { Type } from "class-transformer";
 
 @InputType()
 class UserUpdateInput {
@@ -72,6 +73,18 @@ class UserUpdateInput {
     nullable: true,
   })
   password?: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => RecommendationUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => RecommendationUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => RecommendationUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  recommendations?: RecommendationUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

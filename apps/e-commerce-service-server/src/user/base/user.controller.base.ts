@@ -22,6 +22,9 @@ import { User } from "./User";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserUpdateInput } from "./UserUpdateInput";
+import { RecommendationFindManyArgs } from "../../recommendation/base/RecommendationFindManyArgs";
+import { Recommendation } from "../../recommendation/base/Recommendation";
+import { RecommendationWhereUniqueInput } from "../../recommendation/base/RecommendationWhereUniqueInput";
 import { UserProfileFindManyArgs } from "../../userProfile/base/UserProfileFindManyArgs";
 import { UserProfile } from "../../userProfile/base/UserProfile";
 import { UserProfileWhereUniqueInput } from "../../userProfile/base/UserProfileWhereUniqueInput";
@@ -158,6 +161,93 @@ export class UserControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/recommendations")
+  @ApiNestedQuery(RecommendationFindManyArgs)
+  async findRecommendations(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Recommendation[]> {
+    const query = plainToClass(RecommendationFindManyArgs, request.query);
+    const results = await this.service.findRecommendations(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+
+        product: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/recommendations")
+  async connectRecommendations(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: RecommendationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      recommendations: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/recommendations")
+  async updateRecommendations(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: RecommendationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      recommendations: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/recommendations")
+  async disconnectRecommendations(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: RecommendationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      recommendations: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.Get("/:id/userProfiles")

@@ -16,10 +16,11 @@ import {
   IsString,
   IsOptional,
   MaxLength,
-  IsEnum,
   ValidateNested,
+  IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Recommendation } from "../../recommendation/base/Recommendation";
 import { EnumUserRole } from "./EnumUserRole";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
@@ -78,6 +79,15 @@ class User {
     nullable: true,
   })
   lastName!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Recommendation],
+  })
+  @ValidateNested()
+  @Type(() => Recommendation)
+  @IsOptional()
+  recommendations?: Array<Recommendation>;
 
   @ApiProperty({
     required: false,

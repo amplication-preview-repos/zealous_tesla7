@@ -13,7 +13,8 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
+import { RecommendationListRelationFilter } from "../../recommendation/base/RecommendationListRelationFilter";
 
 @InputType()
 class ProductWhereInput {
@@ -27,6 +28,18 @@ class ProductWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => RecommendationListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => RecommendationListRelationFilter)
+  @IsOptional()
+  @Field(() => RecommendationListRelationFilter, {
+    nullable: true,
+  })
+  recommendations?: RecommendationListRelationFilter;
 }
 
 export { ProductWhereInput as ProductWhereInput };

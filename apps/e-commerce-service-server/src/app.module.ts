@@ -4,6 +4,9 @@ import { UserProfileModule } from "./userProfile/userProfile.module";
 import { UserModule } from "./user/user.module";
 import { CategoryModule } from "./category/category.module";
 import { ProductModule } from "./product/product.module";
+import { SearchModule } from "./search/search.module";
+import { FilterModule } from "./filter/filter.module";
+import { RecommendationModule } from "./recommendation/recommendation.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -21,6 +24,9 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
     UserModule,
     CategoryModule,
     ProductModule,
+    SearchModule,
+    FilterModule,
+    RecommendationModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

@@ -15,15 +15,16 @@ import {
   IsString,
   IsOptional,
   MaxLength,
-  IsEnum,
   ValidateNested,
+  IsEnum,
 } from "class-validator";
+import { RecommendationCreateNestedManyWithoutUsersInput } from "./RecommendationCreateNestedManyWithoutUsersInput";
+import { Type } from "class-transformer";
 import { EnumUserRole } from "./EnumUserRole";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { UserProfileCreateNestedManyWithoutUsersInput } from "./UserProfileCreateNestedManyWithoutUsersInput";
-import { Type } from "class-transformer";
 
 @InputType()
 class UserCreateInput {
@@ -69,6 +70,18 @@ class UserCreateInput {
   @IsString()
   @Field(() => String)
   password!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => RecommendationCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => RecommendationCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => RecommendationCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  recommendations?: RecommendationCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

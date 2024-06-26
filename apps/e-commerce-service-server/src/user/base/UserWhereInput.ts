@@ -13,8 +13,9 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, IsEnum, ValidateNested } from "class-validator";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
+import { RecommendationListRelationFilter } from "../../recommendation/base/RecommendationListRelationFilter";
 import { EnumUserRole } from "./EnumUserRole";
 import { UserProfileListRelationFilter } from "../../userProfile/base/UserProfileListRelationFilter";
 
@@ -63,6 +64,18 @@ class UserWhereInput {
     nullable: true,
   })
   lastName?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => RecommendationListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => RecommendationListRelationFilter)
+  @IsOptional()
+  @Field(() => RecommendationListRelationFilter, {
+    nullable: true,
+  })
+  recommendations?: RecommendationListRelationFilter;
 
   @ApiProperty({
     required: false,

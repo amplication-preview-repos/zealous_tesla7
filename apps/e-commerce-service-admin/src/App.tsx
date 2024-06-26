@@ -25,6 +25,18 @@ import { ProductList } from "./product/ProductList";
 import { ProductCreate } from "./product/ProductCreate";
 import { ProductEdit } from "./product/ProductEdit";
 import { ProductShow } from "./product/ProductShow";
+import { SearchList } from "./search/SearchList";
+import { SearchCreate } from "./search/SearchCreate";
+import { SearchEdit } from "./search/SearchEdit";
+import { SearchShow } from "./search/SearchShow";
+import { FilterList } from "./filter/FilterList";
+import { FilterCreate } from "./filter/FilterCreate";
+import { FilterEdit } from "./filter/FilterEdit";
+import { FilterShow } from "./filter/FilterShow";
+import { RecommendationList } from "./recommendation/RecommendationList";
+import { RecommendationCreate } from "./recommendation/RecommendationCreate";
+import { RecommendationEdit } from "./recommendation/RecommendationEdit";
+import { RecommendationShow } from "./recommendation/RecommendationShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -85,6 +97,27 @@ const App = (): React.ReactElement => {
           edit={ProductEdit}
           create={ProductCreate}
           show={ProductShow}
+        />
+        <Resource
+          name="Search"
+          list={SearchList}
+          edit={SearchEdit}
+          create={SearchCreate}
+          show={SearchShow}
+        />
+        <Resource
+          name="Filter"
+          list={FilterList}
+          edit={FilterEdit}
+          create={FilterCreate}
+          show={FilterShow}
+        />
+        <Resource
+          name="Recommendation"
+          list={RecommendationList}
+          edit={RecommendationEdit}
+          create={RecommendationCreate}
+          show={RecommendationShow}
         />
       </Admin>
     </div>

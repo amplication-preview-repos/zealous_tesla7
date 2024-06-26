@@ -6,11 +6,12 @@ import {
   CreateProps,
   TextInput,
   PasswordInput,
-  SelectInput,
-  SelectArrayInput,
   ReferenceArrayInput,
+  SelectArrayInput,
+  SelectInput,
 } from "react-admin";
 
+import { RecommendationTitle } from "../recommendation/RecommendationTitle";
 import { UserProfileTitle } from "../userProfile/UserProfileTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
@@ -22,6 +23,14 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="First Name" source="firstName" />
         <TextInput label="Last Name" source="lastName" />
         <PasswordInput label="Password" source="password" />
+        <ReferenceArrayInput
+          source="recommendations"
+          reference="Recommendation"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={RecommendationTitle} />
+        </ReferenceArrayInput>
         <SelectInput
           source="role"
           label="role"

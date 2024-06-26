@@ -20,6 +20,8 @@ import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { CreateUserArgs } from "./CreateUserArgs";
 import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
+import { RecommendationFindManyArgs } from "../../recommendation/base/RecommendationFindManyArgs";
+import { Recommendation } from "../../recommendation/base/Recommendation";
 import { UserProfileFindManyArgs } from "../../userProfile/base/UserProfileFindManyArgs";
 import { UserProfile } from "../../userProfile/base/UserProfile";
 import { UserService } from "../user.service";
@@ -87,6 +89,20 @@ export class UserResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [Recommendation], { name: "recommendations" })
+  async findRecommendations(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: RecommendationFindManyArgs
+  ): Promise<Recommendation[]> {
+    const results = await this.service.findRecommendations(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @graphql.ResolveField(() => [UserProfile], { name: "userProfiles" })
