@@ -2,6 +2,8 @@ import { Module } from "@nestjs/common";
 import { UserRoleModule } from "./userRole/userRole.module";
 import { UserProfileModule } from "./userProfile/userProfile.module";
 import { UserModule } from "./user/user.module";
+import { CategoryModule } from "./category/category.module";
+import { ProductModule } from "./product/product.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -17,6 +19,8 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
     UserRoleModule,
     UserProfileModule,
     UserModule,
+    CategoryModule,
+    ProductModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,
