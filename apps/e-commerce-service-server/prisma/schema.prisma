@@ -1,0 +1,296 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model UserRole {
+  createdAt       DateTime @default(now())
+  id              String   @id @default(cuid())
+  roleDescription String?
+  roleName        String?
+  updatedAt       DateTime @updatedAt
+}
+
+model UserProfile {
+  address     String?
+  createdAt   DateTime @default(now())
+  firstName   String?
+  id          String   @id @default(cuid())
+  lastName    String?
+  phoneNumber String?
+  updatedAt   DateTime @updatedAt
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model User {
+  carts           Cart[]
+  createdAt       DateTime         @default(now())
+  email           String?          @unique
+  feedbacks       Feedback[]
+  firstName       String?
+  helpDesks       HelpDesk[]
+  id              String           @id @default(cuid())
+  lastName        String?
+  loyaltyPrograms LoyaltyProgram[]
+  orders          Order[]
+  password        String
+  recommendations Recommendation[]
+  role            EnumUserRole?
+  roles           Json
+  updatedAt       DateTime         @updatedAt
+  username        String           @unique
+  userProfiles    UserProfile[]
+  wishlists       Wishlist[]
+}
+
+model Product {
+  createdAt       DateTime         @default(now())
+  feedbacks       Feedback[]
+  id              String           @id @default(cuid())
+  recommendations Recommendation[]
+  updatedAt       DateTime         @updatedAt
+}
+
+model Category {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Search {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  keyword   String?
+  updatedAt DateTime @updatedAt
+}
+
+model Filter {
+  createdAt DateTime @default(now())
+  criteria  String?
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+  value     String?
+}
+
+model Recommendation {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
+model Wishlist {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
+model Cart {
+  createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  totalPrice Float?
+  updatedAt  DateTime @updatedAt
+  user       User?    @relation(fields: [userId], references: [id])
+  userId     String?
+}
+
+model OrderStatus {
+  createdAt DateTime               @default(now())
+  id        String                 @id @default(cuid())
+  order     Order?                 @relation(fields: [orderId], references: [id])
+  orderId   String?
+  status    EnumOrderStatusStatus?
+  updatedAt DateTime               @updatedAt
+}
+
+model Order {
+  createdAt     DateTime      @default(now())
+  id            String        @id @default(cuid())
+  orderDate     DateTime?
+  orderStatuses OrderStatus[]
+  payments      Payment[]
+  shippings     Shipping[]
+  totalAmount   Float?
+  updatedAt     DateTime      @updatedAt
+  user          User?         @relation(fields: [userId], references: [id])
+  userId        String?
+}
+
+model Payment {
+  amount        Float?
+  createdAt     DateTime                  @default(now())
+  id            String                    @id @default(cuid())
+  order         Order?                    @relation(fields: [orderId], references: [id])
+  orderId       String?
+  paymentDate   DateTime?
+  paymentMethod EnumPaymentPaymentMethod?
+  refunds       Refund[]
+  updatedAt     DateTime                  @updatedAt
+}
+
+model Refund {
+  amount     Float?
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  payment    Payment?  @relation(fields: [paymentId], references: [id])
+  paymentId  String?
+  reason     String?
+  refundDate DateTime?
+  updatedAt  DateTime  @updatedAt
+}
+
+model Shipping {
+  createdAt      DateTime                    @default(now())
+  deliveries     Delivery[]
+  id             String                      @id @default(cuid())
+  order          Order?                      @relation(fields: [orderId], references: [id])
+  orderId        String?
+  shippingCost   Float?
+  shippingDate   DateTime?
+  shippingMethod EnumShippingShippingMethod?
+  trackingNumber String?
+  updatedAt      DateTime                    @updatedAt
+}
+
+model Delivery {
+  createdAt       DateTime                    @default(now())
+  deliveryAddress String?
+  deliveryDate    DateTime?
+  deliveryStatus  EnumDeliveryDeliveryStatus?
+  id              String                      @id @default(cuid())
+  shipping        Shipping?                   @relation(fields: [shippingId], references: [id])
+  shippingId      String?
+  updatedAt       DateTime                    @updatedAt
+}
+
+model Faq {
+  answer    String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  question  String?
+  updatedAt DateTime @updatedAt
+}
+
+model HelpDesk {
+  createdAt   DateTime               @default(now())
+  createdDate DateTime?
+  description String?
+  id          String                 @id @default(cuid())
+  issueType   EnumHelpDeskIssueType?
+  status      EnumHelpDeskStatus?
+  updatedAt   DateTime               @updatedAt
+  user        User?                  @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model Feedback {
+  comments    String?
+  createdAt   DateTime  @default(now())
+  createdDate DateTime?
+  id          String    @id @default(cuid())
+  product     Product?  @relation(fields: [productId], references: [id])
+  productId   String?
+  rating      Int?
+  updatedAt   DateTime  @updatedAt
+  user        User?     @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model AdminDashboard {
+  adminUser     String?
+  createdAt     DateTime @default(now())
+  dashboardData Json?
+  id            String   @id @default(cuid())
+  updatedAt     DateTime @updatedAt
+}
+
+model ContentManagement {
+  content     String?
+  createdAt   DateTime  @default(now())
+  id          String    @id @default(cuid())
+  publishDate DateTime?
+  title       String?
+  updatedAt   DateTime  @updatedAt
+}
+
+model SiteSettings {
+  createdAt    DateTime @default(now())
+  id           String   @id @default(cuid())
+  settingName  String?
+  settingValue Json?
+  updatedAt    DateTime @updatedAt
+}
+
+model Discount {
+  code           String?
+  createdAt      DateTime  @default(now())
+  description    String?
+  discountAmount Float?
+  id             String    @id @default(cuid())
+  updatedAt      DateTime  @updatedAt
+  validFrom      DateTime?
+  validTo        DateTime?
+}
+
+model EmailCampaign {
+  content    String?
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  recipients Json?
+  sentDate   DateTime?
+  subject    String?
+  updatedAt  DateTime  @updatedAt
+}
+
+model LoyaltyProgram {
+  createdAt  DateTime                @default(now())
+  earnedDate DateTime?
+  id         String                  @id @default(cuid())
+  points     Int?
+  tier       EnumLoyaltyProgramTier?
+  updatedAt  DateTime                @updatedAt
+  user       User?                   @relation(fields: [userId], references: [id])
+  userId     String?
+}
+
+enum EnumUserRole {
+  Option1
+}
+
+enum EnumOrderStatusStatus {
+  Option1
+}
+
+enum EnumPaymentPaymentMethod {
+  Option1
+}
+
+enum EnumShippingShippingMethod {
+  Option1
+}
+
+enum EnumDeliveryDeliveryStatus {
+  Option1
+}
+
+enum EnumHelpDeskIssueType {
+  Option1
+}
+
+enum EnumHelpDeskStatus {
+  Option1
+}
+
+enum EnumLoyaltyProgramTier {
+  Option1
+}
